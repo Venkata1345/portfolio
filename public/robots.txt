@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://abhishek-portfolio.pages.dev/sitemap-index.xml
+Sitemap: https://abhishekgullipalli.com/sitemap-index.xml

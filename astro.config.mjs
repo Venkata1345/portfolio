@@ -4,10 +4,9 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import { existsSync } from "node:fs";
 
-/* TODO @ deploy: replace with the real domain once Cloudflare DNS is wired.
-   This URL is used as the canonical origin for sitemap entries and the
-   absolute href for og:image / og:url meta tags. */
-const SITE_URL = "https://abhishek-portfolio.pages.dev";
+/* Used as the canonical origin for sitemap entries and the absolute href
+   for og:image / og:url meta tags. */
+const SITE_URL = "https://abhishekgullipalli.com";
 
 /**
  * Resume presence check — logs a warning at dev/build time if /public/resume.pdf
