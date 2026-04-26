@@ -128,6 +128,9 @@ export type Copy = {
     tagline: string;
     copyright: string;
     backToTop: string;
+    /** Persistent Resume link — neutral label "Resume" in BOTH themes.
+     *  Locked: never voice-flavor this. Recruiters need the literal word. */
+    resumeLink: string;
   };
 
   notFound: {
@@ -251,6 +254,7 @@ const themeA: Copy = {
     tagline: "Sworn to serve the realm. — Maester A.",    // ✓ from Phase 0
     copyright: "© 2026 House Gullipalli. Sworn through the long night.",
     backToTop: "Back to top",                             // 5b-neutral
+    resumeLink: "Resume",                                 // neutral, identical across themes
   },
 
   notFound: {
@@ -377,6 +381,7 @@ const themeB: Copy = {
     tagline: "True story. — Ted-ish, A.",                 // ✓ from Phase 0
     copyright: "© 2026 Abhishek Gullipalli. Built in Booth 3.",
     backToTop: "Back to top",                             // 5b-neutral
+    resumeLink: "Resume",                                 // neutral, identical across themes
   },
 
   notFound: {

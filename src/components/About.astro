@@ -5,7 +5,7 @@ import Persona from "./Persona.astro";
 <section class="about" id="about" data-reveal>
   <div class="about-inner">
     <p class="section-label"><Persona field="about.sectionLabel" /></p>
-    <p class="section-tagline"><Persona field="about.sectionTagline" /></p>
+    <h2 class="section-tagline"><Persona field="about.sectionTagline" /></h2>
     <p class="about-bio"><Persona field="about.bio" /></p>
   </div>
 </section>
@@ -57,5 +57,11 @@ import Persona from "./Persona.astro";
   ::view-transition-new(about-bio) {
     animation-duration: 1100ms;
     animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(about-bio),
+    ::view-transition-new(about-bio) {
+      animation-duration: 0ms;
+    }
   }
 </style>

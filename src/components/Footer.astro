@@ -6,9 +6,17 @@ import Persona from "./Persona.astro";
   <div class="footer-inner">
     <p class="footer-tagline"><Persona field="footer.tagline" /></p>
     <p class="footer-copyright"><Persona field="footer.copyright" /></p>
-    <a class="footer-back-to-top" href="#hero">
-      <Persona field="footer.backToTop" /> ↑
-    </a>
+    <div class="footer-links">
+      {/* Persistent Resume link — same label both themes (locked rule).
+          Native <a download> so it works without JS, and ClientRouter
+          ignores `download` links (no soft-nav for file downloads). */}
+      <a class="footer-resume" href="/resume.pdf" download>
+        <Persona field="footer.resumeLink" />
+      </a>
+      <a class="footer-back-to-top" href="#hero">
+        <Persona field="footer.backToTop" /> ↑
+      </a>
+    </div>
   </div>
 </footer>
 
@@ -40,14 +48,21 @@ import Persona from "./Persona.astro";
     color: var(--muted);
     margin: 0;
   }
+  .footer-links {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+  }
+  .footer-resume,
   .footer-back-to-top {
     font-family: var(--font-body);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--accent);
     text-decoration: none;
     border-bottom: 1px solid transparent;
     transition: border-color 200ms ease-out;
   }
+  .footer-resume:hover,
   .footer-back-to-top:hover {
     border-bottom-color: var(--accent);
   }

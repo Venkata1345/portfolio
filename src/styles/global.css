@@ -96,6 +96,18 @@ body {
 }
 
 /* ─────────────────────────────────────────────────────────────────────
+   Global focus baseline. Wrapped in :where() (specificity 0) so
+   component-level focus rules can override without an !important war.
+   Used by every link / button / focusable that doesn't ship its own.
+   ───────────────────────────────────────────────────────────────────── */
+
+:where(a, button, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
    View Transitions for the persona swap.
    The actual swap is a CSS-driven visibility flip in [data-persona]
    elements; View Transitions captures that as a paint diff. Default
