@@ -4,6 +4,8 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import { existsSync } from "node:fs";
 
+import cloudflare from "@astrojs/cloudflare";
+
 /* Used as the canonical origin for sitemap entries and the absolute href
    for og:image / og:url meta tags. */
 const SITE_URL = "https://abhishekgullipalli.com";
@@ -33,8 +35,11 @@ function resumePresenceCheck() {
 // https://astro.build/config
 export default defineConfig({
   site: SITE_URL,
+
   vite: {
     plugins: [tailwindcss()],
   },
+
   integrations: [mdx(), sitemap(), resumePresenceCheck()],
+  adapter: cloudflare()
 });
