@@ -1,0 +1,107 @@
+---
+import Persona from "./Persona.astro";
+
+/**
+ * Contact section — mailto-only per Rule R7. No form, no validation.
+ * Email per HANDOFF.md §10: abhishekgullipalli65@gmail.com (public).
+ * GitHub + LinkedIn per the same section.
+ */
+const email = "abhishekgullipalli65@gmail.com";
+const github = "https://github.com/Venkata1345";
+const linkedin = "https://www.linkedin.com/in/abhishek-gv/";
+---
+
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <p class="section-label"><Persona field="contact.sectionLabel" /></p>
+    <p class="section-tagline"><Persona field="contact.sectionTagline" /></p>
+
+    <a class="contact-mailto" href={`mailto:${email}`}>
+      <Persona field="contact.mailtoLabel" />
+    </a>
+
+    <ul class="contact-socials" aria-label="Social links">
+      <li>
+        <a href={github} target="_blank" rel="noopener noreferrer">GitHub</a>
+      </li>
+      <li>
+        <a href={linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding: var(--space-8) var(--space-5);
+    max-width: 80ch;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .contact-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    align-items: center;
+  }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin: 0;
+  }
+  .section-tagline {
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    line-height: 1.3;
+    color: var(--fg);
+    margin: 0;
+    max-width: 40ch;
+  }
+
+  .contact-mailto {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 0.75rem 1.75rem;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    transition:
+      transform 120ms ease-out,
+      background var(--duration-swap) var(--easing-swap),
+      border-radius var(--duration-swap) var(--easing-swap);
+  }
+  .contact-mailto:hover {
+    transform: translateY(-1px);
+  }
+  .contact-mailto:focus-visible {
+    outline: 2px solid var(--fg);
+    outline-offset: 3px;
+  }
+
+  .contact-socials {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: var(--space-4);
+  }
+  .contact-socials a {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--fg);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+    transition: border-color 200ms ease-out;
+  }
+  .contact-socials a:hover {
+    border-bottom-color: var(--accent);
+  }
+</style>

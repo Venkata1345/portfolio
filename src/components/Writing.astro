@@ -1,0 +1,60 @@
+---
+import Persona from "./Persona.astro";
+---
+
+<section class="writing" id="writing">
+  <div class="writing-inner">
+    <p class="section-label"><Persona field="writing.sectionLabel" /></p>
+    <p class="section-tagline"><Persona field="writing.sectionTagline" /></p>
+    <p class="writing-empty"><Persona field="writing.empty" /></p>
+    <a class="writing-link" href="/blog">
+      <Persona field="blog.sectionLabel" /> →
+    </a>
+  </div>
+</section>
+
+<style>
+  .writing {
+    padding: var(--space-8) var(--space-5);
+    max-width: 80ch;
+    margin: 0 auto;
+  }
+  .writing-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin: 0;
+  }
+  .section-tagline {
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    line-height: 1.2;
+    color: var(--fg);
+    margin: 0;
+  }
+  .writing-empty {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--muted);
+    margin: 0;
+  }
+  .writing-link {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 200ms ease-out;
+  }
+  .writing-link:hover {
+    border-bottom-color: var(--accent);
+  }
+</style>

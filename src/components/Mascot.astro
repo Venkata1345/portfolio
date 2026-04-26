@@ -147,15 +147,14 @@
 </style>
 
 <script>
-  import { animate } from "motion";
-
+  /* Native Web Animations API — sufficient for a one-shot fly-in
+     and no library dependency for this single use. */
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let ravenAnimated = false;
 
   function maybeAnimateRaven() {
     if (ravenAnimated) return;
     if (reducedMotion) {
-      // No animation — flag as "done" so we don't try again.
       ravenAnimated = true;
       return;
     }
@@ -166,18 +165,16 @@
     if (!raven) return;
 
     ravenAnimated = true;
-    animate(
-      raven,
+    raven.animate(
+      [
+        { opacity: 0, transform: "translate(-180px, -60px) rotate(-8deg)" },
+        { opacity: 1, transform: "translate(0, 0) rotate(0)" },
+      ],
       {
-        x: [-180, 0],
-        y: [-60, 0],
-        opacity: [0, 1],
-        rotate: [-8, 0],
+        duration: 1400,
+        easing: "cubic-bezier(0.25, 1, 0.5, 1)",
+        fill: "forwards",
       },
-      {
-        duration: 1.4,
-        easing: [0.25, 1, 0.5, 1],
-      }
     );
   }
 

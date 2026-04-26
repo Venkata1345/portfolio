@@ -1,0 +1,232 @@
+---
+import { getCollection } from "astro:content";
+import Persona from "./Persona.astro";
+import { letters } from "../content/letters";
+
+/**
+ * Signature easter-egg.
+ *   Theme A — "Letters from the Rookery": curated letters from letters.ts.
+ *   Theme B — "Booth Banter": per-project reactions from MDX frontmatter.
+ *
+ * Both render simultaneously; the persona engine hides whichever isn't
+ * active. Lily skipping ScaleVision is data-driven — the boothBanter
+ * array on scale-vision.mdx omits her entry; the renderer accepts the
+ * shorter list without complaint.
+ */
+
+const projectEntries = await getCollection("projects");
+const projects = projectEntries
+  .map((e) => e.data)
+  .sort((a, b) => a.order - b.order);
+
+const projectSlugs = new Set(projects.map((p) => p.slug));
+const projectNamesBySlug = new Map(
+  projects.map((p) => [
+    p.slug,
+    { themeA: p.themeA.name, themeB: p.themeB.name },
+  ]),
+);
+---
+
+<section class="signature" id="signature">
+  <header class="signature-header">
+    <p class="section-label"><Persona field="signature.sectionLabel" /></p>
+    <p class="section-tagline"><Persona field="signature.sectionTagline" /></p>
+  </header>
+
+  {/* Theme A — Letters from the Rookery */}
+  <div data-persona="A" class="letters">
+    {letters.map((letter) => {
+      const isLinkable = projectSlugs.has(letter.aboutProject);
+      return (
+        <article class="letter">
+          <header class="letter-meta">
+            <span class="letter-from">{letter.fromHouse}</span>
+            <span class="letter-about">
+              {isLinkable ? (
+                <a href={`#projects`}>
+                  {projectNamesBySlug.get(letter.aboutProject)?.themeA ?? letter.aboutProject}
+                </a>
+              ) : (
+                <span>{letter.aboutProject}</span>
+              )}
+            </span>
+          </header>
+          <p class="letter-body">{letter.body}</p>
+          {letter.signOff && (
+            <p class="letter-signoff">{letter.signOff}</p>
+          )}
+        </article>
+      );
+    })}
+  </div>
+
+  {/* Theme B — Booth Banter (per project) */}
+  <div data-persona="B" class="banter-board">
+    {projects.map((p) => (
+      <article class="banter-project">
+        <header class="banter-project-header">
+          <span class="banter-project-id">{p.themeB.projectId}</span>
+          <h3 class="banter-project-name">{p.themeB.name}</h3>
+        </header>
+        <ul class="banter-list">
+          {p.themeB.boothBanter.map((b) => (
+            <li class="banter-line">
+              <span class="banter-attribution">
+                {b.voice}{b.vintage && <span class="banter-vintage"> ({b.vintage})</span>}
+              </span>
+              <span class="banter-quote">{b.line}</span>
+            </li>
+          ))}
+        </ul>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .signature {
+    padding: var(--space-8) var(--space-5);
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .signature-header {
+    text-align: center;
+    margin-bottom: var(--space-6);
+  }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin: 0 0 var(--space-3);
+  }
+  .section-tagline {
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    line-height: 1.2;
+    color: var(--fg);
+    margin: 0;
+  }
+
+  /* ─── Letters from the Rookery ─── */
+  .letters {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+  .letter {
+    border-left: 2px solid var(--accent);
+    padding: var(--space-3) var(--space-4);
+    background: color-mix(in oklab, var(--bg) 92%, var(--fg) 1%);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  }
+  .letter-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: var(--space-3);
+  }
+  .letter-from {
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  .letter-about a {
+    color: var(--fg);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--accent);
+  }
+  .letter-about a:hover {
+    border-bottom-style: solid;
+  }
+  .letter-body {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--fg);
+    margin: 0 0 var(--space-3);
+  }
+  .letter-signoff {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--muted);
+    text-align: right;
+    margin: 0;
+  }
+
+  /* ─── Booth Banter ─── */
+  .banter-board {
+    display: grid;
+    gap: var(--space-5);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 768px) {
+    .banter-board {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .banter-project {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    background: color-mix(in oklab, var(--bg) 90%, var(--fg) 1%);
+  }
+  .banter-project-header {
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--border);
+  }
+  .banter-project-id {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+  .banter-project-name {
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-size: 1.1rem;
+    color: var(--fg);
+    margin: 0;
+    line-height: 1.3;
+  }
+  .banter-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .banter-line {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .banter-attribution {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-transform: lowercase;
+  }
+  .banter-vintage {
+    color: var(--muted);
+    text-transform: none;
+    letter-spacing: normal;
+  }
+  .banter-quote {
+    font-family: var(--font-body);
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: var(--fg);
+    opacity: 0.9;
+  }
+</style>

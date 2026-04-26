@@ -1,0 +1,253 @@
+---
+import { getCollection } from "astro:content";
+import Persona from "./Persona.astro";
+import { copy } from "../content/copy";
+
+const projectEntries = await getCollection("projects");
+const projects = projectEntries
+  .map((e) => e.data)
+  .sort((a, b) => a.order - b.order);
+
+const a = copy.themeA.projects;
+const b = copy.themeB.projects;
+---
+
+<section class="projects" id="projects">
+  <header class="projects-header">
+    <p class="section-label"><Persona field="projects.sectionLabel" /></p>
+    <p class="section-tagline"><Persona field="projects.sectionTagline" /></p>
+  </header>
+
+  <div class="project-grid">
+    {projects.map((p) => (
+      <article class="project-card">
+        <p class="project-id">
+          <span data-persona="A">{p.themeA.projectId}</span><span data-persona="B">{p.themeB.projectId}</span>
+        </p>
+
+        <h3 class="project-name">
+          <span data-persona="A">{p.themeA.name}</span><span data-persona="B">{p.themeB.name}</span>
+        </h3>
+
+        <p class="project-tagline">
+          <span data-persona="A">{p.themeA.tagline}</span><span data-persona="B">{p.themeB.tagline}</span>
+        </p>
+
+        <p class="project-description">
+          <span data-persona="A">{p.themeA.description}</span><span data-persona="B">{p.themeB.description}</span>
+        </p>
+
+        {p.neutral.metrics.length > 0 && (
+          <ul class="project-metrics">
+            {p.neutral.metrics.map((metric, i) => (
+              <li class="metric">
+                <span class="metric-value">{metric.value}</span>
+                <span class="metric-label">
+                  <span data-persona="A">{p.themeA.metricLabels[i] ?? metric.label}</span><span data-persona="B">{p.themeB.metricLabels[i] ?? metric.label}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <p class="project-tech-label">
+          <span data-persona="A">{a.techLabel}</span><span data-persona="B">{b.techLabel}</span>
+        </p>
+        <ul class="project-tech">
+          {p.tech.map((t) => <li>{t}</li>)}
+        </ul>
+
+        <div class="project-links">
+          {p.liveDemo ? (
+            <a class="project-link" href={p.liveDemo} target="_blank" rel="noopener noreferrer">
+              <span data-persona="A">{a.viewLive}</span><span data-persona="B">{b.viewLive}</span>
+            </a>
+          ) : (
+            <span class="project-link project-link-muted">
+              <span data-persona="A">{a.noLivePlaceholder}</span><span data-persona="B">{b.noLivePlaceholder}</span>
+            </span>
+          )}
+          {p.github && (
+            <a class="project-link" href={p.github} target="_blank" rel="noopener noreferrer">
+              <span data-persona="A">{a.viewRepo}</span><span data-persona="B">{b.viewRepo}</span>
+            </a>
+          )}
+          {p.apiDocs && (
+            <a class="project-link" href={p.apiDocs} target="_blank" rel="noopener noreferrer">
+              <span data-persona="A">{a.viewApi}</span><span data-persona="B">{b.viewApi}</span>
+            </a>
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .projects {
+    padding: var(--space-8) var(--space-5);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .projects-header {
+    text-align: center;
+    margin-bottom: var(--space-6);
+  }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin: 0 0 var(--space-3);
+  }
+  .section-tagline {
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    line-height: 1.2;
+    color: var(--fg);
+    margin: 0;
+  }
+
+  .project-grid {
+    display: grid;
+    gap: var(--space-5);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 768px) {
+    .project-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .project-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    background: color-mix(in oklab, var(--bg) 85%, var(--fg) 1%);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    transition:
+      border-color 200ms ease-out,
+      transform 200ms ease-out,
+      background var(--duration-swap) var(--easing-swap),
+      border-radius var(--duration-swap) var(--easing-swap);
+  }
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .project-card:hover {
+      transform: none;
+    }
+  }
+
+  .project-id {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin: 0;
+  }
+  .project-name {
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+    line-height: 1.2;
+    color: var(--fg);
+    margin: 0;
+  }
+  .project-tagline {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--fg);
+    margin: 0;
+    opacity: 0.9;
+  }
+  .project-description {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--fg);
+    margin: 0;
+    opacity: 0.85;
+  }
+
+  .project-metrics {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+  .metric {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+  .metric-value {
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-size: 1.4rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .metric-label {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .project-tech-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin: var(--space-2) 0 0;
+  }
+  .project-tech {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .project-tech li {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--fg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.2rem 0.55rem;
+  }
+
+  .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+  .project-link {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 200ms ease-out;
+  }
+  .project-link:hover {
+    border-bottom-color: var(--accent);
+  }
+  .project-link-muted {
+    color: var(--muted);
+    cursor: default;
+  }
+  .project-link-muted:hover {
+    border-bottom-color: transparent;
+  }
+</style>

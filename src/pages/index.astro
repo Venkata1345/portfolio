@@ -1,6 +1,14 @@
 ---
 import Base from "../layouts/Base.astro";
 import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import Projects from "../components/Projects.astro";
+import Experience from "../components/Experience.astro";
+import Skills from "../components/Skills.astro";
+import Writing from "../components/Writing.astro";
+import Contact from "../components/Contact.astro";
+import Signature from "../components/Signature.astro";
+import Footer from "../components/Footer.astro";
 import { copy } from "../content/copy";
 
 // Meta tags only render once per HTTP response, so we pick theme A as the
@@ -11,4 +19,12 @@ const meta = copy.themeA.meta;
 
 <Base title={meta.pageTitle} description={meta.pageDescription}>
   <Hero />
+  <About />
+  <Projects />
+  <Experience />
+  <Skills />
+  <Writing />
+  <Contact />
+  <Signature />
+  <Footer />
 </Base>

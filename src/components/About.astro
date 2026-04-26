@@ -1,0 +1,61 @@
+---
+import Persona from "./Persona.astro";
+---
+
+<section class="about" id="about">
+  <div class="about-inner">
+    <p class="section-label"><Persona field="about.sectionLabel" /></p>
+    <p class="section-tagline"><Persona field="about.sectionTagline" /></p>
+    <p class="about-bio"><Persona field="about.bio" /></p>
+  </div>
+</section>
+
+<style>
+  .about {
+    padding: var(--space-8) var(--space-5);
+    max-width: 80ch;
+    margin: 0 auto;
+  }
+  .about-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin: 0;
+  }
+  .section-tagline {
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    line-height: 1.2;
+    color: var(--fg);
+    margin: 0 0 var(--space-3);
+  }
+  .about-bio {
+    font-family: var(--font-body);
+    font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+    line-height: 1.7;
+    color: var(--fg);
+    margin: 0;
+
+    /* Rule B2 — about.bio is the heaviest swap moment in the site.
+       Naming it for View Transitions opts the paragraph out of the
+       root crossfade and into its own crossfade pair, where we
+       lengthen the duration so the swap "earns a beat" instead of
+       passing instantly. */
+    view-transition-name: about-bio;
+  }
+</style>
+
+<style is:global>
+  ::view-transition-old(about-bio),
+  ::view-transition-new(about-bio) {
+    animation-duration: 1100ms;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+</style>

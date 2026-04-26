@@ -1,0 +1,65 @@
+---
+import Base from "../../layouts/Base.astro";
+import Persona from "../../components/Persona.astro";
+import { copy } from "../../content/copy";
+
+const meta = copy.themeA.meta;
+---
+
+<Base title={`Blog — ${meta.pageTitle}`} description={meta.pageDescription}>
+  <main class="blog-stub">
+    <p class="section-label"><Persona field="blog.sectionLabel" /></p>
+    <p class="section-tagline"><Persona field="blog.sectionTagline" /></p>
+    <p class="blog-empty"><Persona field="blog.empty" /></p>
+    <a class="back-link" href="/">
+      <Persona field="notFound.cta" /> →
+    </a>
+  </main>
+</Base>
+
+<style>
+  .blog-stub {
+    min-height: 80vh;
+    padding: var(--space-8) var(--space-5);
+    max-width: 70ch;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin: 0;
+  }
+  .section-tagline {
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    line-height: 1.2;
+    color: var(--fg);
+    margin: 0;
+  }
+  .blog-empty {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: var(--muted);
+    margin: 0;
+  }
+  .back-link {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 200ms ease-out;
+    margin-top: var(--space-4);
+  }
+  .back-link:hover {
+    border-bottom-color: var(--accent);
+  }
+</style>

@@ -57,9 +57,7 @@ const { title, description } = Astro.props;
           | "B") ?? "A";
         const next = current === "A" ? "B" : "A";
 
-        // @ts-expect-error — View Transitions API not in all TS lib targets
         if (typeof document.startViewTransition === "function") {
-          // @ts-expect-error
           document.startViewTransition(() => applyTheme(next));
         } else {
           applyTheme(next);

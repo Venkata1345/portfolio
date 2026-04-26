@@ -1,0 +1,76 @@
+---
+import Base from "../layouts/Base.astro";
+import Persona from "../components/Persona.astro";
+import { copy } from "../content/copy";
+
+const meta = copy.themeA.meta;
+---
+
+<Base title={`404 — ${meta.pageTitle}`} description={meta.pageDescription}>
+  <main class="not-found">
+    <p class="not-found-label">404</p>
+    <h1 class="not-found-title"><Persona field="notFound.title" /></h1>
+    <p class="not-found-body"><Persona field="notFound.body" /></p>
+    <a class="not-found-cta" href="/">
+      <Persona field="notFound.cta" /> →
+    </a>
+  </main>
+</Base>
+
+<style>
+  .not-found {
+    min-height: 80vh;
+    padding: var(--space-8) var(--space-5);
+    max-width: 60ch;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .not-found-label {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.32em;
+    color: var(--accent);
+    margin: 0;
+  }
+  .not-found-title {
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+    line-height: 1.2;
+    color: var(--fg);
+    margin: 0;
+  }
+  .not-found-body {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--fg);
+    opacity: 0.85;
+    margin: 0;
+  }
+  .not-found-cta {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 0.65rem 1.4rem;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    margin-top: var(--space-3);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    transition:
+      transform 120ms ease-out,
+      background var(--duration-swap) var(--easing-swap),
+      border-radius var(--duration-swap) var(--easing-swap);
+  }
+  .not-found-cta:hover {
+    transform: translateY(-1px);
+  }
+</style>
