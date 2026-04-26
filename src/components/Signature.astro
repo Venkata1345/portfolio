@@ -34,8 +34,14 @@ const projectNamesBySlug = new Map(
     <p class="section-tagline"><Persona field="signature.sectionTagline" /></p>
   </header>
 
-  {/* Theme A — Letters from the Rookery */}
-  <div data-persona="A" class="letters">
+  {/* Theme A — Letters from the Rookery.
+      `data-persona` is on a plain wrapper; the styled `.letters` div
+      lives inside. If we put both on the same element, Astro's scoped
+      class selector ties the global persona-hide rule's specificity
+      and source order makes `display: flex` win, leaving Letters
+      visible in Theme B. */}
+  <div data-persona="A">
+   <div class="letters">
     {letters.map((letter) => {
       const isLinkable = projectSlugs.has(letter.aboutProject);
       return (
@@ -59,10 +65,13 @@ const projectNamesBySlug = new Map(
         </article>
       );
     })}
+   </div>
   </div>
 
-  {/* Theme B — Booth Banter (per project) */}
-  <div data-persona="B" class="banter-board">
+  {/* Theme B — Booth Banter (per project). Same wrapper pattern as
+      above — keeps `display: grid` off the persona-tagged element. */}
+  <div data-persona="B">
+   <div class="banter-board">
     {projects.map((p) => (
       <article class="banter-project">
         <header class="banter-project-header">
@@ -81,6 +90,7 @@ const projectNamesBySlug = new Map(
         </ul>
       </article>
     ))}
+   </div>
   </div>
 </section>
 
