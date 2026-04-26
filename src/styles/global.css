@@ -98,13 +98,46 @@ body {
 /* ─────────────────────────────────────────────────────────────────────
    View Transitions for the persona swap.
    The actual swap is a CSS-driven visibility flip in [data-persona]
-   elements; View Transitions captures that as a paint diff and crossfades.
+   elements; View Transitions captures that as a paint diff. Default
+   `root` runs a radial-wipe from the toggle button's position
+   (Base.astro stashes that as --toggle-x / --toggle-y on <html>).
+   Fallback origin is top-right where the toggle lives.
    ───────────────────────────────────────────────────────────────────── */
 
-::view-transition-old(root),
+::view-transition-old(root) {
+  animation: none;
+  z-index: 0;
+}
 ::view-transition-new(root) {
+  animation: 700ms cubic-bezier(0.4, 0, 0.2, 1) both toggle-wipe-in;
+  z-index: 1;
+}
+
+@keyframes toggle-wipe-in {
+  from {
+    clip-path: circle(0% at var(--toggle-x, 95%) var(--toggle-y, 5%));
+  }
+  to {
+    clip-path: circle(150% at var(--toggle-x, 95%) var(--toggle-y, 5%));
+  }
+}
+
+/* ClientRouter page navigation transitions. ClientRouter uses the
+   browser View Transitions API too; reuse the duration/easing tokens
+   here so / ↔ /blog navigation feels like the same motion language
+   without the radial wipe (which would be mis-anchored when the click
+   is anywhere). */
+::view-transition-old(astro-page),
+::view-transition-new(astro-page) {
   animation-duration: var(--duration-swap);
   animation-timing-function: var(--easing-swap);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root),
+  ::view-transition-old(root) {
+    animation: none;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -122,4 +155,67 @@ body {
 }
 [data-theme="B"] [data-persona="A"] {
   display: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Scroll-triggered reveals.
+   Hidden state is gated by `.reveals-enabled` on <html>, set inline
+   before paint only when prefers-reduced-motion is NOT reduce — so the
+   no-JS / reduced-motion path leaves content visible as a default.
+   The IntersectionObserver in Base.astro adds `.revealed` on intersect.
+   ───────────────────────────────────────────────────────────────────── */
+
+.reveals-enabled [data-reveal]:not(.revealed) {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.reveals-enabled [data-reveal] {
+  transition-property: opacity, transform;
+  transition-duration: 700ms;
+  transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+}
+/* Maester — slow ink-drying fade. Long tail easing, generous duration. */
+.reveals-enabled[data-theme="A"] [data-reveal] {
+  transition-duration: 700ms;
+  transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+/* MacLaren's — snap scene-cut. Quick, decisive. */
+.reveals-enabled[data-theme="B"] [data-reveal] {
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Section-tagline hover effects (Phase 5, never on body text).
+   Gated on (hover: hover) so touch users skip entirely.
+   Theme A: text-decoration-color fades in slowly (ink-drying).
+   Theme B: text-shadow glow flashes briefly (neon-sign).
+   ───────────────────────────────────────────────────────────────────── */
+
+@media (hover: hover) {
+  [data-theme="A"] .section-tagline {
+    text-decoration: underline transparent;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.22em;
+    transition: text-decoration-color 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  [data-theme="A"] .section-tagline:hover {
+    text-decoration-color: var(--accent);
+  }
+
+  [data-theme="B"] .section-tagline {
+    transition: text-shadow 220ms ease-out;
+  }
+  [data-theme="B"] .section-tagline:hover {
+    text-shadow:
+      0 0 10px color-mix(in oklab, var(--accent) 60%, transparent),
+      0 0 24px color-mix(in oklab, var(--accent) 30%, transparent);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="A"] .section-tagline,
+  [data-theme="B"] .section-tagline {
+    transition: none;
+  }
 }

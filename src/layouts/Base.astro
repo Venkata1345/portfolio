@@ -1,6 +1,8 @@
 ---
 import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
 import ThemeToggle from "../components/ThemeToggle.astro";
+import Cursor from "../components/Cursor.astro";
 
 interface Props {
   title: string;
@@ -22,7 +24,10 @@ const { title, description } = Astro.props;
     {/* Theme initialization. Inlined to run before page paint — no FOUC.
         Both themes are dark, so prefers-color-scheme is no longer a useful
         signal — first visit always lands in A (Maester) per Phase 4 rec.
-        localStorage takes over from the second visit onward. */}
+        localStorage takes over from the second visit onward.
+        With ClientRouter the <html> element persists across in-app
+        navigations, so data-theme also persists; this only runs on
+        full page loads. */}
     <script is:inline>
       (function () {
         try {
@@ -32,15 +37,34 @@ const { title, description } = Astro.props;
         } catch (e) {
           document.documentElement.dataset.theme = "A";
         }
+        /* Gate scroll-reveal hidden state. Without JS or with reduced
+           motion, leave content visible — never trap content behind a
+           reveal that won't fire. The CSS rule for `[data-reveal]`
+           hides only inside `.reveals-enabled`. */
+        try {
+          if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            document.documentElement.classList.add("reveals-enabled");
+          }
+        } catch (e) {
+          /* matchMedia unavailable — skip the hide-then-reveal. */
+        }
       })();
     </script>
+
+    {/* ClientRouter — Astro 5's renamed <ViewTransitions />. Drives soft
+        crossfades between / and /blog while preserving <html> attributes
+        (so data-theme survives navigations). */}
+    <ClientRouter />
   </head>
   <body>
+    <Cursor />
     <ThemeToggle />
     <slot />
 
-    {/* Toggle handler. Uses View Transitions API where available,
-        falls back to the CSS transition on html otherwise. */}
+    {/* Toggle handler. Event-delegated on document so it survives
+        ClientRouter body swaps without re-registration. Click on the
+        toggle stashes the button's center as CSS vars on <html>, which
+        the radial-wipe view-transition keyframe in global.css reads. */}
     <script>
       function applyTheme(theme: "A" | "B") {
         document.documentElement.dataset.theme = theme;
@@ -51,11 +75,15 @@ const { title, description } = Astro.props;
         }
       }
 
-      function toggleTheme() {
+      function toggleTheme(originX: number, originY: number) {
         const current = (document.documentElement.dataset.theme as
           | "A"
           | "B") ?? "A";
         const next = current === "A" ? "B" : "A";
+
+        const root = document.documentElement;
+        root.style.setProperty("--toggle-x", `${originX}px`);
+        root.style.setProperty("--toggle-y", `${originY}px`);
 
         if (typeof document.startViewTransition === "function") {
           document.startViewTransition(() => applyTheme(next));
@@ -64,11 +92,61 @@ const { title, description } = Astro.props;
         }
       }
 
-      document
-        .querySelectorAll<HTMLElement>("[data-toggle-theme]")
-        .forEach((el) => {
-          el.addEventListener("click", toggleTheme);
-        });
+      document.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement | null;
+        const toggle = target?.closest<HTMLElement>("[data-toggle-theme]");
+        if (!toggle) return;
+
+        const rect = toggle.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+
+        toggle.classList.remove("is-stamped");
+        // Re-add on the next frame so the animation restarts on each click.
+        requestAnimationFrame(() => toggle.classList.add("is-stamped"));
+
+        toggleTheme(x, y);
+      });
+    </script>
+
+    {/* Scroll-triggered reveals. One observer reused across navigations.
+        On `astro:page-load` we (re)scan for `[data-reveal]` nodes in the
+        new body and hand them to the observer. Persona-specific timings
+        live in global.css under [data-theme="A"] / [data-theme="B"]. */}
+    <script>
+      const supportsObserver =
+        typeof IntersectionObserver !== "undefined" &&
+        document.documentElement.classList.contains("reveals-enabled");
+
+      const observer = supportsObserver
+        ? new IntersectionObserver(
+            (entries, obs) => {
+              for (const entry of entries) {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("revealed");
+                  obs.unobserve(entry.target);
+                }
+              }
+            },
+            { rootMargin: "0px 0px -10% 0px", threshold: 0.05 },
+          )
+        : null;
+
+      function bindReveals() {
+        if (!observer) {
+          // Reduced motion / no IO: surface everything immediately.
+          document
+            .querySelectorAll<HTMLElement>("[data-reveal]")
+            .forEach((el) => el.classList.add("revealed"));
+          return;
+        }
+        document
+          .querySelectorAll<HTMLElement>("[data-reveal]:not(.revealed)")
+          .forEach((el) => observer.observe(el));
+      }
+
+      bindReveals();
+      document.addEventListener("astro:page-load", bindReveals);
     </script>
   </body>
 </html>

@@ -1,0 +1,194 @@
+---
+/**
+ * Custom cursor — a decorative ring + dot that follows the pointer.
+ *
+ * Hard rules:
+ *   - System cursor stays visible (a11y). The ring is additive.
+ *   - Disabled on coarse pointers (`@media (pointer: fine)`).
+ *   - Disabled when prefers-reduced-motion is reduce — the lag would
+ *     be the whole point and reduced-motion users opt out.
+ *   - position: fixed + pointer-events: none, so zero layout impact
+ *     and no click interception.
+ *
+ * The ring lerps toward the dot (which tracks the mouse exactly) so it
+ * has a subtle "weight." Persona changes swap the colors via tokens.
+ */
+---
+
+<div class="cursor-root" aria-hidden="true">
+  <div class="cursor-ring"></div>
+  <div class="cursor-dot"></div>
+</div>
+
+<style>
+  .cursor-root {
+    /* Hide everywhere by default; only desktop + non-reduced-motion
+       devices will reveal it via the `body.cursor-on` class set by
+       the script below. */
+    display: none;
+    pointer-events: none;
+  }
+
+  body.cursor-on .cursor-root {
+    display: block;
+  }
+
+  .cursor-ring,
+  .cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 50%;
+    /* Initial off-screen — the script positions on first mousemove. */
+    transform: translate(-100px, -100px);
+    will-change: transform;
+  }
+
+  .cursor-ring {
+    width: 28px;
+    height: 28px;
+    margin-left: -14px;
+    margin-top: -14px;
+    border: 1px solid var(--fg);
+    transition:
+      width 180ms ease-out,
+      height 180ms ease-out,
+      margin 180ms ease-out,
+      border-color var(--duration-swap) var(--easing-swap),
+      background var(--duration-swap) var(--easing-swap),
+      opacity 180ms ease-out;
+    opacity: 0.7;
+  }
+  .cursor-ring.is-grow {
+    width: 44px;
+    height: 44px;
+    margin-left: -22px;
+    margin-top: -22px;
+    background: color-mix(in oklab, var(--accent) 14%, transparent);
+    border-color: var(--accent);
+  }
+
+  .cursor-dot {
+    width: 4px;
+    height: 4px;
+    margin-left: -2px;
+    margin-top: -2px;
+    background: var(--accent);
+    transition:
+      background var(--duration-swap) var(--easing-swap),
+      filter var(--duration-swap) var(--easing-swap);
+  }
+
+  /* Theme B — Blue French Horn vibe: ring stays accent, dot gets a faint glow. */
+  [data-theme="B"] .cursor-ring {
+    border-color: var(--accent);
+  }
+  [data-theme="B"] .cursor-dot {
+    filter: drop-shadow(0 0 4px var(--accent));
+  }
+
+  /* Touch / coarse-pointer / reduced-motion: never show. */
+  @media (pointer: coarse), (hover: none), (prefers-reduced-motion: reduce) {
+    .cursor-root,
+    body.cursor-on .cursor-root {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+  /* Run once per session — listener stays attached across ClientRouter
+     navigations because <body> is swapped, but the document and window
+     persist; the .cursor-root element is part of every page's body so
+     we re-resolve handles on `astro:page-load`. */
+
+  type CursorState = {
+    ring: HTMLElement;
+    dot: HTMLElement;
+    targetX: number;
+    targetY: number;
+    ringX: number;
+    ringY: number;
+    rafId: number | null;
+  };
+
+  const supportsFinePointer = matchMedia("(pointer: fine)").matches;
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const enable = supportsFinePointer && !reducedMotion;
+
+  let state: CursorState | null = null;
+
+  function resolveElements(): CursorState | null {
+    const ring = document.querySelector<HTMLElement>(".cursor-ring");
+    const dot = document.querySelector<HTMLElement>(".cursor-dot");
+    if (!ring || !dot) return null;
+    return {
+      ring,
+      dot,
+      targetX: -100,
+      targetY: -100,
+      ringX: -100,
+      ringY: -100,
+      rafId: null,
+    };
+  }
+
+  function loop() {
+    if (!state) return;
+    const lerp = 0.18;
+    state.ringX += (state.targetX - state.ringX) * lerp;
+    state.ringY += (state.targetY - state.ringY) * lerp;
+    state.ring.style.transform = `translate(${state.ringX}px, ${state.ringY}px)`;
+    state.dot.style.transform = `translate(${state.targetX}px, ${state.targetY}px)`;
+    state.rafId = requestAnimationFrame(loop);
+  }
+
+  function bindGrowTargets() {
+    if (!state) return;
+    const ring = state.ring;
+    document
+      .querySelectorAll<HTMLElement>(
+        'a, button, [role="button"], [data-toggle-theme], [data-cursor-grow]',
+      )
+      .forEach((el) => {
+        el.addEventListener("mouseenter", () => ring.classList.add("is-grow"));
+        el.addEventListener("mouseleave", () => ring.classList.remove("is-grow"));
+      });
+  }
+
+  function init() {
+    if (!enable) return;
+    state = resolveElements();
+    if (!state) return;
+
+    document.body.classList.add("cursor-on");
+
+    document.addEventListener("mousemove", (e) => {
+      if (!state) return;
+      state.targetX = e.clientX;
+      state.targetY = e.clientY;
+    });
+
+    bindGrowTargets();
+
+    if (state.rafId === null) {
+      state.rafId = requestAnimationFrame(loop);
+    }
+  }
+
+  init();
+  document.addEventListener("astro:page-load", () => {
+    /* Re-bind grow targets for the new body, and re-resolve element
+       handles since ClientRouter swapped the body. */
+    if (!enable) return;
+    state = resolveElements();
+    if (!state) return;
+    document.body.classList.add("cursor-on");
+    bindGrowTargets();
+    if (state.rafId === null) {
+      state.rafId = requestAnimationFrame(loop);
+    }
+  });
+</script>

@@ -58,4 +58,21 @@ import Persona from "./Persona.astro";
     outline: 2px solid var(--fg);
     outline-offset: 3px;
   }
+
+  /* Click stamp — Base.astro toggles `.is-stamped` on each click and
+     re-applies on the next frame so the animation restarts cleanly. */
+  .theme-toggle.is-stamped {
+    animation: toggle-stamp 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes toggle-stamp {
+    0%   { transform: scale(1); }
+    35%  { transform: scale(0.92); }
+    70%  { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .theme-toggle.is-stamped {
+      animation: none;
+    }
+  }
 </style>
