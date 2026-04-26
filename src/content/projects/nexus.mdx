@@ -1,0 +1,78 @@
+---
+slug: "nexus"
+order: 1
+tech:
+  - "LangGraph"
+  - "XGBoost"
+  - "MLflow"
+  - "FastAPI"
+
+github: "https://github.com/Venkata1345/Nexus-ai-resolution"
+liveDemo: "http://3.140.199.58"
+apiDocs: "http://3.140.199.58:8000/docs"
+
+# ─────────────────────────────────────────────────────────────────────
+# Neutral baseline
+# ─────────────────────────────────────────────────────────────────────
+neutral:
+  name: "Nexus"
+  description: "A production-style customer-support system combining a 99.3% F1 intent classifier with a LangGraph agentic workflow that pauses for human approval before any financial action."
+  metrics:
+    - label: "Intent F1"
+      value: "99.3%"
+
+# ─────────────────────────────────────────────────────────────────────
+# Theme A — Maester / Citadel
+# ─────────────────────────────────────────────────────────────────────
+themeA:
+  projectId: "ARC-I"
+  name: "The Refusal Engine"
+  tagline: "A speaking construct that knows when to wait for a hand of flesh."
+  description: >-
+    Most speaking constructs answer at once, whatever the question. This one
+    does not. A classifier of my own forging — trained on twenty-seven kinds of
+    customer plea — sits at the gate and routes each petitioner to the proper
+    worker. When coin is involved, the construct halts itself and waits for a
+    human steward to approve before any vault is opened. The retriever consults
+    the Citadel's archive of canonical replies before the reply is spoken
+    aloud, so no policy is invented in the moment. It is, in short, an
+    oath-bound system: it serves quickly when it is sure, and refuses to speak
+    when it is not.
+  metricLabels:
+    - "Accuracy of the gate"
+
+# ─────────────────────────────────────────────────────────────────────
+# Theme B — MacLaren's / Booth 3
+# ─────────────────────────────────────────────────────────────────────
+themeB:
+  projectId: "PLAY-01"
+  name: "The Refusal Engine"
+  tagline: "An AI that knows when to shut up and ask a human."
+  description: >-
+    Kids, here's the thing about most chatbots — they answer everything, even
+    the questions they shouldn't. Your dad-ish friend Abhishek built one that
+    doesn't. There's a classifier up front (99.3% accurate, suit up) that
+    figures out what the customer actually wants. If it's a refund? The whole
+    thing pauses. Like, literally stops the graph and waits for a human manager
+    to click Approve before any money moves. Marshall would be proud. The
+    retriever pulls actual policy text before the LLM speaks, so it can't just
+    make stuff up. Most agentic chatbot projects on the internet are one LLM
+    call in a trenchcoat. This one is the full operation. Legen — wait for it
+    — dary.
+  metricLabels:
+    - "How often the gate guesses right"
+
+  boothBanter:
+    - voice: marshall
+      vintage: "post-bar exam"
+      line: "An agent that pauses for human approval before any financial action. Finally — finally — software with due process. Lawyered."
+    - voice: lily
+      line: "It's so polite. It checks in before doing anything important. I wish more of my kindergarteners did that."
+    - voice: robin
+      vintage: "Channel One newsdesk"
+      line: "In tonight's top story: a customer-support system clocks 99.3% F1 on intent classification and zero unauthorized refunds. Back to you, Sandy."
+    - voice: barney
+      line: "An AI that asks permission before spending money. RULE-RESPECTING TECHNOLOGY. Suit up."
+    - voice: ted
+      line: "Kids, this was the project where your dad-ish friend learned that the best agents aren't the ones with the most answers. They're the ones that know when to pass the question to someone else."
+---

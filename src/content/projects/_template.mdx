@@ -1,0 +1,81 @@
+---
+# ─────────────────────────────────────────────────────────────────────
+# TEMPLATE — copy this file, rename to <slug>.mdx, fill in.
+# Schema: src/content/projects/_schema.ts
+# ─────────────────────────────────────────────────────────────────────
+
+slug: "TBD-kebab-case-slug"
+order: 99
+tech:
+  - "TBD-tech-1"
+  - "TBD-tech-2"
+  - "TBD-tech-3"
+
+# Links — omit any line that doesn't apply to this project.
+github: "TBD-or-omit"
+liveDemo: "TBD-or-omit"
+apiDocs: "TBD-or-omit"
+
+# ─────────────────────────────────────────────────────────────────────
+# Neutral baseline — the recruiter's anchor reading.
+# This is the source of truth that both themes reframe.
+# ─────────────────────────────────────────────────────────────────────
+neutral:
+  name: "TBD"
+  description: "TBD: 1–2 sentences, neutral, factual."
+  metrics:
+    - label: "TBD label"      # e.g. "Accuracy"
+      value: "TBD"            # e.g. "99.3%"
+    - label: "TBD label"
+      value: "TBD"
+
+# ─────────────────────────────────────────────────────────────────────
+# Theme A — Maester / Citadel
+# ─────────────────────────────────────────────────────────────────────
+themeA:
+  projectId: "TBD"            # e.g. "I" / "ARC-I" / "OATH-01"
+  name: "TBD"                 # may match neutral.name or be reframed in voice
+  tagline: "TBD: 5–12 words, Maester voice."
+  description: |
+    TBD: 2–5 sentences in Maester voice. Don't restate the neutral.description
+    line-for-line — reframe the same facts through scholarly / sworn-service
+    register. Numbers and outcomes survive; framing changes.
+  metricLabels:
+    - "TBD: label for metric 1 in Maester voice"
+    - "TBD: label for metric 2 in Maester voice"
+
+# ─────────────────────────────────────────────────────────────────────
+# Theme B — MacLaren's / Booth 3
+# ─────────────────────────────────────────────────────────────────────
+themeB:
+  projectId: "TBD"            # e.g. "PLAY-01" / "BOOTH-01"
+  name: "TBD"
+  tagline: "TBD: 5–12 words, Ted/Barney voice. Hybrid tense (see CLAUDE.md)."
+  description: |
+    TBD: 2–5 sentences in Ted-narrator voice with Barney/Robin/Marshall/Lily
+    permitted as punctuation. Past-tense for *narration of events*; present-tense
+    for *what the project does* (recruiter must read this and know it works now).
+  metricLabels:
+    - "TBD: label for metric 1 in voice"
+    - "TBD: label for metric 2 in voice"
+
+  # Booth Banter — 4–5 reactions from the gang.
+  # Omit any voice that has nothing real to say (e.g., Lily on pure infra).
+  # Schema: _brief/booth-banter-schema.md
+  boothBanter:
+    - voice: marshall
+      # vintage: "Marshall (post-Slap Bet, pre-Lawyered)"   # optional
+      line: "TBD: pedantic legal-style commentary. 1–2 sentences."
+    - voice: lily
+      line: "TBD: wholesome take. 1–2 sentences."
+    - voice: robin
+      # vintage: "Robin (Channel One news anchor era)"
+      line: "TBD: stat-heavy news-anchor delivery. 1–2 sentences."
+    - voice: barney
+      line: "TBD: declares the project legendary, with Barney swagger. 1–2 sentences."
+    - voice: ted
+      line: "TBD: Future-Ted retrospective narration. 1–2 sentences."
+---
+
+{/* MDX body is reserved for long-form deep-dives if a project ever wants one.
+    Most projects can leave this empty — the card uses frontmatter only. */}

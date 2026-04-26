@@ -1,0 +1,85 @@
+---
+slug: "nutri-grade"
+order: 3
+tech:
+  - "MLflow"
+  - "DVC"
+  - "FastAPI"
+
+github: "https://github.com/Venkata1345/nutri-grade-mlops"
+liveDemo: "https://nutri-grade-mlops-hbswsm8hrajznfv93xykkg.streamlit.app"
+apiDocs: "https://nutri-grade-mlops.onrender.com/docs"
+
+# ─────────────────────────────────────────────────────────────────────
+# Neutral baseline
+# Three pipeline metrics added during Phase 2 fill (the model accuracy is
+# secondary to the lifecycle demonstration).
+# ─────────────────────────────────────────────────────────────────────
+neutral:
+  name: "Nutri-Grade MLOps"
+  description: "An end-to-end calorie predictor that demonstrates a full MLOps lifecycle — DVC for data versioning, MLflow for experiments, FastAPI + Streamlit for serving, GitHub Actions for CI, deployed on Render."
+  metrics:
+    - label: "Pipeline Stages"
+      value: "6"
+    - label: "Deployment"
+      value: "Render + Streamlit Cloud"
+    - label: "Test Coverage"
+      value: "CI-gated"
+
+# ─────────────────────────────────────────────────────────────────────
+# Theme A — Maester / Citadel
+# ─────────────────────────────────────────────────────────────────────
+themeA:
+  projectId: "ARC-III"
+  name: "The Counting of Common Bread"
+  tagline: "A small construct, but the full ritual was kept."
+  description: >-
+    The question was modest: read a piece of fast-food fare and predict its
+    caloric weight. The work, however, was not in the question. It was in the
+    apparatus around it. Versioned data tracked through DVC. Experiments logged
+    through MLflow so the chosen model could be defended later. A serving
+    spirit forged in FastAPI. A small hall in Streamlit for the petitioner to
+    enter values. Tests written and gated through GitHub Actions, so no broken
+    oath could pass without notice. Deployed to the realm beyond, where it
+    answers still. A reminder that the smallest construct, kept properly,
+    teaches more than the largest one shipped poorly.
+  metricLabels:
+    - "Stages of the rite"
+    - "Where it serves"
+    - "Gates against the broken oath"
+
+# ─────────────────────────────────────────────────────────────────────
+# Theme B — MacLaren's / Booth 3
+# ─────────────────────────────────────────────────────────────────────
+themeB:
+  projectId: "PLAY-03"
+  name: "The Calorie Counter (And The Whole Pipeline Around It)"
+  tagline: "A small ML project that I refused to ship like a small ML project."
+  description: >-
+    Kids, this is the one where your dad-ish friend made a regression model to
+    predict calories from McDonald's nutrition data. On its own — not
+    legendary. But the model was never the point. The point was: DVC for the
+    data, MLflow for the experiments, FastAPI for the serving, Streamlit for
+    the UI, pytest for the tests, GitHub Actions for the CI gate, deployed
+    live on Render. The whole pipeline. End to end. Six stages. Suit up. You
+    can argue calorie regression isn't a hard problem. You can't argue the
+    apparatus isn't a real one.
+  metricLabels:
+    - "How many things had to work"
+    - "Where you can poke it"
+    - "Whether it breaks if I push something dumb"
+
+  boothBanter:
+    - voice: marshall
+      vintage: "contracts-class earnest"
+      line: "An end-to-end ML pipeline with version control, automated testing, and CI gating. I'm not saying I'd marry this project. But I'd cite it. Lawyered."
+    - voice: lily
+      line: "A whole pipeline just to count calories in a Big Mac! That is so committed. I respect it."
+    - voice: robin
+      vintage: "sports-desk filler segment"
+      line: "And in lighter news: a six-stage MLOps pipeline shipped for a fast-food calorie predictor. Some would call it overkill. We call it commitment."
+    - voice: barney
+      line: "Six pipeline stages for a calorie regression. SIX. Most projects on the internet skip five of them. Suit up."
+    - voice: ted
+      line: "Kids, this was the project where your dad-ish friend learned that the model is the smallest part of shipping a model."
+---

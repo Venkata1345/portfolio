@@ -1,0 +1,83 @@
+---
+# ─────────────────────────────────────────────────────────────────────
+# NOTE: ScaleVision is flagged as a placeholder in _brief/profile.md.
+# User intends to replace this project later. Keep the slot/order; expect
+# new neutral content + reset of all themeA/themeB fields when swapped.
+# ─────────────────────────────────────────────────────────────────────
+
+slug: "scale-vision"
+order: 4
+tech:
+  - "Kubernetes"
+  - "ONNX"
+  - "FastAPI"
+
+github: "https://github.com/Venkata1345/scale-vision-k8s"
+# No live demo per profile.md.
+
+# ─────────────────────────────────────────────────────────────────────
+# Neutral baseline
+# ─────────────────────────────────────────────────────────────────────
+neutral:
+  name: "ScaleVision"
+  description: "A scalable computer-vision inference pipeline that converts ResNet50 to ONNX, serves it via FastAPI, and auto-scales 1–10 pods on Kubernetes based on real-time CPU traffic."
+  metrics:
+    - label: "Pod Autoscale Range"
+      value: "1–10"
+
+# ─────────────────────────────────────────────────────────────────────
+# Theme A — Maester / Citadel
+# ─────────────────────────────────────────────────────────────────────
+themeA:
+  projectId: "ARC-IV"
+  name: "The Watchtowers That Multiply"
+  tagline: "A summoning of more selves, when the realm grows loud."
+  description: >-
+    A vision-construct built upon ResNet50, made portable through ONNX so it
+    might be carried into many runtimes without burden. Wrapped in a serving
+    spirit of FastAPI. Held within Docker, the modern flask. And — here lies
+    the work — overseen by an orchestrator that watches the load upon the
+    construct and summons more of its own kind when the petitioners grow many,
+    between one and ten, returning to one when the storm has passed. A small
+    system, but one that demonstrates the principle: a watchtower that does
+    not scale to its watch is no watchtower at all.
+  metricLabels:
+    - "Watchtowers summoned"
+
+# ─────────────────────────────────────────────────────────────────────
+# Theme B — MacLaren's / Booth 3
+# ─────────────────────────────────────────────────────────────────────
+themeB:
+  projectId: "PLAY-04"
+  name: "The One That Grows When You Yell At It"
+  tagline: "A vision model that goes from 1 pod to 10 when traffic spikes. Then back down. Adulting."
+  description: >-
+    Kids, your dad-ish friend got curious about Kubernetes one weekend. So he
+    took a ResNet50, converted it to ONNX, wrapped it in FastAPI, threw it in
+    Docker, set up a Horizontal Pod Autoscaler, and stress-tested the thing
+    until Kubernetes started spinning up new pods to handle the load. One to
+    ten. Then back to one when the load died down. Was this a production
+    system serving real users? No. Was it a real system that demonstrated real
+    auto-scaling on a real cluster? Yes. Some weekends you go to MacLaren's.
+    Some weekends you make Kubernetes do its thing. Challenge accepted.
+  metricLabels:
+    - "How many copies of itself it summons"
+
+  # ─────────────────────────────────────────────────────────────────
+  # Lily intentionally absent — locked rule (personas.md, Booth Banter section).
+  # Pure infra has no wholesome angle for her to land on. The renderer accepts
+  # the gap; if a meta-line is desired ("I don't really get this one, but
+  # Marshall says it's impressive"), that's a Phase 3 rendering concern.
+  # ─────────────────────────────────────────────────────────────────
+  boothBanter:
+    - voice: marshall
+      vintage: "corporate-law adjacent"
+      line: "Horizontal pod autoscaling between 1 and 10 replicas based on CPU utilization. This is the kind of infrastructure I wish my old firm had. We'd have stopped paying for idle servers years ago."
+    - voice: robin
+      vintage: "morning-traffic report"
+      line: "And in tech traffic this morning: a vision API auto-scaled from one pod to ten under load test, then returned to one. No incidents. No accidents. Smooth ride."
+    - voice: barney
+      line: "A Kubernetes cluster that grows when you yell at it and shrinks when you stop. THIS IS WHAT INFRASTRUCTURE SHOULD ALWAYS DO. Legen — wait for it — dary."
+    - voice: ted
+      line: "Kids, this was the weekend project where your dad-ish friend learned that knowing a thing in theory and watching it actually work on your laptop are very different educations."
+---
