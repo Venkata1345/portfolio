@@ -1,0 +1,76 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+
+    {/* Theme initialization. Inlined to run before page paint — no FOUC. */}
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem("portfolio-theme");
+          var theme =
+            stored === "A" || stored === "B"
+              ? stored
+              : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "B"
+              : "A";
+          document.documentElement.dataset.theme = theme;
+        } catch (e) {
+          document.documentElement.dataset.theme = "A";
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+
+    {/* Toggle handler. Uses View Transitions API where available,
+        falls back to the CSS transition on html otherwise. */}
+    <script>
+      function applyTheme(theme: "A" | "B") {
+        document.documentElement.dataset.theme = theme;
+        try {
+          localStorage.setItem("portfolio-theme", theme);
+        } catch (e) {
+          // ignore — toggle still works in-session
+        }
+      }
+
+      function toggleTheme() {
+        const current = (document.documentElement.dataset.theme as
+          | "A"
+          | "B") ?? "A";
+        const next = current === "A" ? "B" : "A";
+
+        // @ts-expect-error — View Transitions API not in all TS lib targets
+        if (typeof document.startViewTransition === "function") {
+          // @ts-expect-error
+          document.startViewTransition(() => applyTheme(next));
+        } else {
+          applyTheme(next);
+        }
+      }
+
+      document
+        .querySelectorAll<HTMLElement>("[data-toggle-theme]")
+        .forEach((el) => {
+          el.addEventListener("click", toggleTheme);
+        });
+    </script>
+  </body>
+</html>

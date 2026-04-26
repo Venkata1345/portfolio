@@ -1,0 +1,41 @@
+---
+/**
+ * <Persona field="hero.tagline" />
+ *
+ * Renders both themeA and themeB strings; CSS hides the inactive one based on
+ * `[data-theme]` on <html>. No JS framework / hydration needed.
+ *
+ * The dot-path must resolve to a leaf string in copy.ts. Type-safe enough at
+ * runtime — throws if the path doesn't resolve to strings on both sides.
+ */
+
+import { copy } from "../content/copy";
+
+interface Props {
+  field: string;
+}
+
+const { field } = Astro.props;
+
+function resolve(obj: unknown, path: string): unknown {
+  return path
+    .split(".")
+    .reduce<any>(
+      (acc, key) => (acc != null ? acc[key] : undefined),
+      obj as any
+    );
+}
+
+const a = resolve(copy.themeA, field);
+const b = resolve(copy.themeB, field);
+
+if (typeof a !== "string" || typeof b !== "string") {
+  throw new Error(
+    `<Persona field="${field}"> resolved to a non-string. ` +
+      `Expected leaf strings on both themes; got A=${typeof a}, B=${typeof b}. ` +
+      `Check the path against src/content/copy.ts.`
+  );
+}
+---
+
+<span data-persona="A">{a}</span><span data-persona="B">{b}</span>

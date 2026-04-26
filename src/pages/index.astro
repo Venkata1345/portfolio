@@ -1,0 +1,45 @@
+---
+import Base from "../layouts/Base.astro";
+import Persona from "../components/Persona.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+---
+
+<Base title="Persona engine — scaffold test">
+  <main>
+    <p class="tagline"><Persona field="hero.tagline" /></p>
+    <ThemeToggle />
+    <p class="hint">
+      Click the button to swap personas. Tagline, button text, colors, and fonts
+      should all change in lock-step.
+    </p>
+  </main>
+</Base>
+
+<style>
+  main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-5);
+    padding: var(--space-5);
+    text-align: center;
+  }
+  .tagline {
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-size: clamp(1.25rem, 3vw, 2rem);
+    line-height: 1.4;
+    max-width: 60ch;
+    margin: 0;
+    color: var(--fg);
+  }
+  .hint {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--muted);
+    margin-top: var(--space-3);
+    max-width: 50ch;
+  }
+</style>

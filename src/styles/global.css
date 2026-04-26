@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────────────
+   Theme tokens. Every visual variable lives here, keyed off [data-theme].
+   Components reference var(--token) only — no Tailwind dark: mode.
+   ───────────────────────────────────────────────────────────────────── */
+
+[data-theme="A"] {
+  /* Maester / Citadel — parchment, ink, deep house red */
+  --bg: #f5ecd5;
+  --fg: #1a1410;
+  --accent: #7a1f1f;
+  --muted: #8a7a5a;
+  --border: rgba(26, 20, 16, 0.15);
+
+  --font-display: "Cinzel", "Cormorant Garamond", Georgia, serif;
+  --font-body: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-mono: "Iosevka", "JetBrains Mono", ui-monospace, monospace;
+
+  --weight-display: 600;
+  --weight-body: 400;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --space-7: 4rem;
+  --space-8: 6rem;
+
+  --duration-swap: 600ms;
+  --easing-swap: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+[data-theme="B"] {
+  /* MacLaren's / Booth 3 — warm dark wood, cream, neon pink */
+  --bg: #1a1612;
+  --fg: #f0e6d6;
+  --accent: #d4416c;
+  --muted: #8a7a6a;
+  --border: rgba(240, 230, 214, 0.1);
+
+  --font-display: "Coolvetica", "Bebas Neue", "Helvetica Neue", sans-serif;
+  --font-body: "Inter", "Helvetica Neue", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+
+  --weight-display: 700;
+  --weight-body: 400;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --space-7: 4rem;
+  --space-8: 6rem;
+
+  --duration-swap: 350ms;
+  --easing-swap: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Base styles using only var(--token).
+   The transition on html provides the swap fallback for browsers
+   without View Transitions API support.
+   ───────────────────────────────────────────────────────────────────── */
+
+html {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-weight: var(--weight-body);
+  transition:
+    background var(--duration-swap) var(--easing-swap),
+    color var(--duration-swap) var(--easing-swap);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   View Transitions for the persona swap.
+   The actual swap is a CSS-driven visibility flip in [data-persona]
+   elements; View Transitions captures that as a paint diff and crossfades.
+   ───────────────────────────────────────────────────────────────────── */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--duration-swap);
+  animation-timing-function: var(--easing-swap);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Persona engine: render both, hide inactive via CSS.
+   No client-side framework needed — the data-theme on <html> drives
+   which span is visible. View Transitions makes the swap smooth.
+   ───────────────────────────────────────────────────────────────────── */
+
+[data-persona="A"],
+[data-persona="B"] {
+  display: contents;
+}
+[data-theme="A"] [data-persona="B"] {
+  display: none;
+}
+[data-theme="B"] [data-persona="A"] {
+  display: none;
+}

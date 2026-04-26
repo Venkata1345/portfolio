@@ -1,0 +1,37 @@
+---
+import Persona from "./Persona.astro";
+---
+
+<button data-toggle-theme class="theme-toggle" type="button">
+  <Persona field="toggle.toOther" />
+</button>
+
+<style>
+  .theme-toggle {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    padding: 0.75rem 1.25rem;
+    font-family: var(--font-body);
+    font-weight: var(--weight-body);
+    font-size: 0.95rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    transition:
+      background var(--duration-swap) var(--easing-swap),
+      color var(--duration-swap) var(--easing-swap),
+      border-radius var(--duration-swap) var(--easing-swap),
+      transform 120ms ease-out;
+  }
+  .theme-toggle:hover {
+    transform: translateY(-1px);
+  }
+  .theme-toggle:active {
+    transform: translateY(0);
+  }
+  .theme-toggle:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+</style>
