@@ -111,13 +111,9 @@ export type Copy = {
   contact: {
     sectionLabel: string;
     sectionTagline: string;
-    emailLabel: string;        // "By raven, to:" / "Email me at:"
-    formName: string;
-    formEmail: string;
-    formMessage: string;
-    formSubmit: string;
-    formSuccess: string;
-    formError: string;
+    mailtoLabel: string;       // visible text on the mailto: link (voiced)
+    // Form fields intentionally absent — contact is mailto-only, no form.
+    // No emailLabel prefix either — the section header alone provides context.
   };
 
   signature: {
@@ -155,8 +151,8 @@ export type Copy = {
 const themeA: Copy = {
   meta: {
     universe: "THE CITADEL OF HOUSTON",                 // ✓ derived from Phase 0
-    pageTitle: "TBD: browser tab title in Maester voice",
-    pageDescription: "TBD: SEO/share-card description in Maester voice (~155 chars)",
+    pageTitle: "Abhishek Gullipalli — AI/ML Engineer, sworn to the Citadel",
+    pageDescription: "AI/ML engineer building the unglamorous parts of production AI — eval frameworks, safety rails, ingestion pipelines that hold through the long night.",
   },
 
   toggle: {
@@ -197,81 +193,77 @@ const themeA: Copy = {
 
   projects: {
     sectionLabel: "The Maester's Records",                // ✓ from Phase 0 (alt: 'Annals of Service')
-    sectionTagline: "TBD: sub-header",
-    techLabel: "TBD: e.g. 'Forged with'",
-    viewLive: "TBD: e.g. 'Visit the works'",
-    viewRepo: "TBD: e.g. 'Read the scroll'",
-    viewApi: "TBD: e.g. 'The Archmaester's notes' (API docs link label)",
-    noLivePlaceholder: "TBD: e.g. 'Held within the Citadel'",
+    sectionTagline: "The chronicles, kept honestly.",
+    techLabel: "Forged with",                             // split-voice (Maester side)
+    viewLive: "View live demo",                           // 5b-neutral
+    viewRepo: "View source",                              // 5b-neutral
+    viewApi: "API docs",                                  // 5b-neutral
+    noLivePlaceholder: "Held within the Citadel walls",
   },
 
   experience: {
     sectionLabel: "Sworn Service",                        // ✓ from Phase 0 (alt: 'Banners Raised')
-    sectionTagline: "TBD: sub-header",
-    presentLabel: "TBD: e.g. 'Currently sworn' or 'Present'",
+    sectionTagline: "Houses served, watches kept, oaths still standing.",
+    presentLabel: "Currently sworn",
   },
 
   skills: {
     sectionLabel: "The Maester's Chain",                  // ✓ from Phase 0
-    sectionTagline: "TBD: sub-header",
+    sectionTagline: "The links of the chain, each its own craft.",
+    // Pattern: every Maester header opens with "Of [domain] and [related domain]."
+    // Cohesion through grammar, not through repeating "link." The Chain framing
+    // lives only at the section level.
     categories: {
-      // Resume groups skills into 6 categories. Each needs a Maester-voice name.
-      programming: "TBD: name for 'Programming & Data Engineering' link of the chain",
-      ml: "TBD: name for 'Machine Learning & NLP' link",
-      agents: "TBD: name for 'AI & Conversational Agents' link",
-      cloud: "TBD: name for 'Cloud, Deployment & Infrastructure' link",
-      math: "TBD: name for 'Applied Math & Statistics' link",
-      compliance: "TBD: name for 'Compliance, Collaboration & Soft Skills' link",
+      programming: "Of letters and ledgers",
+      ml: "Of inference and proof",
+      agents: "Of speech with familiars",
+      cloud: "Of wards and watchtowers",
+      math: "Of numbers and auguries",
+      compliance: "Of oaths and witnesses",
     },
   },
 
   writing: {
     sectionLabel: "The Citadel Archives",                 // ✓ from Phase 0
-    sectionTagline: "TBD: sub-header",
-    empty: "TBD: empty-state copy (e.g. 'The shelves await new tomes')",
+    sectionTagline: "What few scrolls have left the tower.",
+    empty: "Coming soon.",                                // 5b-neutral
   },
 
   blog: {
     sectionLabel: "Scrolls from the Tower",               // ✓ from Phase 0
-    sectionTagline: "TBD: sub-header",
-    empty: "TBD: empty-state copy",
-    readMore: "TBD: 'read more' link label",
+    sectionTagline: "Notes from the rookery, when the watch is quiet.",
+    empty: "Coming soon.",                                // 5b-neutral
+    readMore: "Read the scroll",
   },
 
   contact: {
     sectionLabel: "Send a Raven",                         // ✓ from Phase 0
-    sectionTagline: "TBD: sub-header",
-    emailLabel: "TBD: e.g. 'By raven, to:'",
-    formName: "TBD: name field label",
-    formEmail: "TBD: email field label",
-    formMessage: "TBD: message field label",
-    formSubmit: "TBD: submit button label",
-    formSuccess: "TBD: success message",
-    formError: "TBD: error message",
+    sectionTagline: "The Citadel keeps no closed doors. Reach me by raven.",
+    mailtoLabel: "Send word →",
   },
 
   signature: {
     sectionLabel: "Letters from the Rookery",             // ✓ from Phase 0
-    sectionTagline: "TBD: sub-header (e.g. 'Word from the houses of the realm')",
+    sectionTagline: "What the realm has said of the work.",
   },
 
   footer: {
     tagline: "Sworn to serve the realm. — Maester A.",    // ✓ from Phase 0
-    copyright: "TBD: e.g. '© 2026, by my oath. House Gullipalli.'",
-    backToTop: "TBD: 'back to top' label",
+    copyright: "© 2026 House Gullipalli. Sworn through the long night.",
+    backToTop: "Back to top",                             // 5b-neutral
   },
 
   notFound: {
     title: "This page took the black",                    // ✓ from Phase 0
-    body: "TBD: 1–2 sentence body copy for the 404",
-    cta: "TBD: 'return home' button label",
+    body: "This page took the black and rides now beyond the Wall. The long night came for it before its watch had ended.",
+    cta: "Return to the Citadel",
   },
 
   misc: {
-    loading: "TBD: e.g. 'The ravens are in flight…'",
-    error: "TBD: generic error fallback",
-    copyEmail: "TBD: 'copy email' button label",
-    copied: "TBD: 'copied!' confirmation",
+    loading: "Loading…",                                  // 5b-neutral
+    error: "Something went wrong.",                       // 5b-neutral
+    copyEmail: "Copy email",                              // 5b-neutral
+    copied: "Copied",                                     // 5b-neutral
   },
 };
 
@@ -282,8 +274,8 @@ const themeA: Copy = {
 const themeB: Copy = {
   meta: {
     universe: "MACLAREN'S, BOOTH 3",                      // ✓ derived from Phase 0
-    pageTitle: "TBD: browser tab title in Ted-narrator voice",
-    pageDescription: "TBD: SEO/share-card description in Ted voice (~155 chars)",
+    pageTitle: "Abhishek Gullipalli — AI/ML Engineer (also: a guy at MacLaren's)",
+    pageDescription: "Kids, this is Abhishek — an AI/ML engineer who builds the parts nobody puts in the demo. Eval frameworks, safety rails, pipelines that hold at 3am.",
   },
 
   toggle: {
@@ -326,80 +318,78 @@ const themeB: Copy = {
 
   projects: {
     sectionLabel: "The Playbook: Legendary Stories",      // ✓ from Phase 0
-    sectionTagline: "TBD: sub-header",
-    techLabel: "TBD: e.g. 'Built with'",
-    viewLive: "TBD: e.g. 'See it live'",
-    viewRepo: "TBD: e.g. 'See the source'",
-    viewApi: "TBD: e.g. 'API docs'",
-    noLivePlaceholder: "TBD: e.g. 'Internal only — but trust me, it was legendary'",
+    sectionTagline: "Kids, every one of these has a story. Some are even legendary.",
+    techLabel: "Built with",                              // split-voice (Ted side)
+    viewLive: "View live demo",                           // 5b-neutral
+    viewRepo: "View source",                              // 5b-neutral
+    viewApi: "API docs",                                  // 5b-neutral
+    noLivePlaceholder: "You had to be there.",
   },
 
   experience: {
     sectionLabel: "The Highlight Reel",                   // ✓ from Phase 0 (alt: 'Past Jobs, Pre-Architect Era')
-    sectionTagline: "TBD: sub-header (Ted intro)",
-    presentLabel: "TBD: e.g. 'Currently' or 'Still telling this one'",
+    sectionTagline: "The places that hired me before this place did.",
+    presentLabel: "Currently",
   },
 
   skills: {
     sectionLabel: "Things I'm Annoyingly Good At",        // ✓ from Phase 0
-    sectionTagline: "TBD: sub-header (Barney+Robin blend)",
+    sectionTagline: "The list got long. Suit up.",
+    // Register: 5 Barney-swagger headers + 1 Robin-newsroom spike on Compliance for contrast.
+    // Marshall/Lily/Ted voices live in the Booth Banter easter egg, not at this layer.
+    // Render exactly as typed: em-dash in "(Legen — dary)" and "The Math, Yes The Math"
+    // capitalization are intentional. No text-transform; no smart-quote conversion.
     categories: {
-      programming: "TBD: name for the 'Programming & Data Engineering' bucket in Ted/Barney voice",
-      ml: "TBD: name for 'Machine Learning & NLP'",
-      agents: "TBD: name for 'AI & Conversational Agents'",
-      cloud: "TBD: name for 'Cloud, Deployment & Infrastructure'",
-      math: "TBD: name for 'Applied Math & Statistics'",
-      compliance: "TBD: name for 'Compliance, Collaboration & Soft Skills'",
+      programming: "The Plumbing Bit (Legen — dary)",
+      ml: "Models I Have Bent To My Will",
+      agents: "The Ones That Talk Back",
+      cloud: "Where The Magic Lives Rent-Free",
+      math: "The Math, Yes The Math",
+      compliance: "In Tonight's Top Story: Compliance",
     },
   },
 
   writing: {
     sectionLabel: "Articles I Made the Gang Read",        // ✓ from Phase 0
-    sectionTagline: "TBD: sub-header (Ted)",
-    empty: "TBD: empty-state copy",
+    sectionTagline: "Things the gang actually finished reading.",
+    empty: "Coming soon.",                                // 5b-neutral
   },
 
   blog: {
     sectionLabel: "Booth Notes",                          // ✓ from Phase 0
-    sectionTagline: "TBD: sub-header (Ted)",
-    empty: "TBD: empty-state copy",
-    readMore: "TBD: 'read more' link label",
+    sectionTagline: "Notes scribbled at Booth 3, between rounds.",
+    empty: "Coming soon.",                                // 5b-neutral
+    readMore: "Keep reading",
   },
 
   contact: {
     sectionLabel: "Haaaave You Met Me?",                  // ✓ from Phase 0
-    sectionTagline: "TBD: sub-header (Barney)",
-    emailLabel: "TBD: e.g. 'Email me at:'",
-    formName: "TBD: name field label",
-    formEmail: "TBD: email field label",
-    formMessage: "TBD: message field label",
-    formSubmit: "TBD: submit button label",
-    formSuccess: "TBD: success message",
-    formError: "TBD: error message",
+    sectionTagline: "Have you met me? You're about to. Challenge accepted.",
+    mailtoLabel: "Drop a line →",
   },
 
   signature: {
     sectionLabel: "Booth Banter",                         // ✓ from Phase 0
-    sectionTagline: "TBD: sub-header (the gang reacts)",
+    sectionTagline: "Kids, this is what the gang had to say.",
   },
 
   footer: {
     tagline: "True story. — Ted-ish, A.",                 // ✓ from Phase 0
-    copyright: "TBD: e.g. '© 2026. True story.'",
-    backToTop: "TBD: 'back to top' label",
+    copyright: "© 2026 Abhishek Gullipalli. Built in Booth 3.",
+    backToTop: "Back to top",                             // 5b-neutral
   },
 
   notFound: {
     title: "...and that's not how I met your page",       // ✓ from Phase 0
-    body: "TBD: 1–2 sentence body copy for the 404",
-    cta: "TBD: 'return home' button label",
+    body: "Kids, somewhere along the way this page got lost. But that's a story for another time.",
+    cta: "Back to Booth 3",
   },
 
   misc: {
-    loading: "TBD: e.g. 'Wait for it…'",
-    error: "TBD: generic error fallback",
-    copyEmail: "TBD: 'copy email' button label",
-    copied: "TBD: 'copied!' confirmation",
+    loading: "Loading…",                                  // 5b-neutral
+    error: "Something went wrong.",                       // 5b-neutral
+    copyEmail: "Copy email",                              // 5b-neutral
+    copied: "Copied",                                     // 5b-neutral
   },
 };
 
