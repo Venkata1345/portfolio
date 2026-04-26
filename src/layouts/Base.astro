@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import ThemeToggle from "../components/ThemeToggle.astro";
 
 interface Props {
   title: string;
@@ -18,18 +19,16 @@ const { title, description } = Astro.props;
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
 
-    {/* Theme initialization. Inlined to run before page paint — no FOUC. */}
+    {/* Theme initialization. Inlined to run before page paint — no FOUC.
+        Both themes are dark, so prefers-color-scheme is no longer a useful
+        signal — first visit always lands in A (Maester) per Phase 4 rec.
+        localStorage takes over from the second visit onward. */}
     <script is:inline>
       (function () {
         try {
           var stored = localStorage.getItem("portfolio-theme");
-          var theme =
-            stored === "A" || stored === "B"
-              ? stored
-              : window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "B"
-              : "A";
-          document.documentElement.dataset.theme = theme;
+          document.documentElement.dataset.theme =
+            stored === "A" || stored === "B" ? stored : "A";
         } catch (e) {
           document.documentElement.dataset.theme = "A";
         }
@@ -37,6 +36,7 @@ const { title, description } = Astro.props;
     </script>
   </head>
   <body>
+    <ThemeToggle />
     <slot />
 
     {/* Toggle handler. Uses View Transitions API where available,

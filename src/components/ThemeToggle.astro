@@ -2,36 +2,60 @@
 import Persona from "./Persona.astro";
 ---
 
-<button data-toggle-theme class="theme-toggle" type="button">
+<button
+  data-toggle-theme
+  class="theme-toggle"
+  type="button"
+  aria-label="Switch site theme"
+>
   <Persona field="toggle.toOther" />
 </button>
 
 <style>
   .theme-toggle {
+    /* Fixed top-right, visible on every page (rendered from Base layout). */
+    position: fixed;
+    top: var(--space-3);
+    right: var(--space-3);
+    z-index: 50;
+
     background: var(--accent);
     color: var(--bg);
     border: none;
-    padding: 0.75rem 1.25rem;
+    padding: 0.65rem 1.1rem;
+
+    /* Accessibility: 44×44 minimum hit area on mobile. */
+    min-height: 44px;
+    min-width: 44px;
+
     font-family: var(--font-body);
     font-weight: var(--weight-body);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     border-radius: var(--radius-md);
     cursor: pointer;
     letter-spacing: 0.01em;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
     transition:
       background var(--duration-swap) var(--easing-swap),
       color var(--duration-swap) var(--easing-swap),
       border-radius var(--duration-swap) var(--easing-swap),
-      transform 120ms ease-out;
+      transform 120ms ease-out,
+      box-shadow 120ms ease-out;
   }
+
   .theme-toggle:hover {
     transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   }
   .theme-toggle:active {
     transform: translateY(0);
   }
+
+  /* Visible focus ring for keyboard users. Outline, not box-shadow,
+     so it isn't suppressed by the hover shadow. */
   .theme-toggle:focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--fg);
     outline-offset: 3px;
   }
 </style>

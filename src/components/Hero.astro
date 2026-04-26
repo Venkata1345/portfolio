@@ -1,0 +1,148 @@
+---
+import Persona from "./Persona.astro";
+import Mascot from "./Mascot.astro";
+---
+
+<section class="hero" id="hero">
+  <Mascot />
+
+  <div class="hero-content">
+    <p class="hero-eyebrow"><Persona field="hero.eyebrow" /></p>
+    <h1 class="hero-name"><Persona field="hero.name" /></h1>
+    <p class="hero-title"><Persona field="hero.title" /></p>
+    <p class="hero-tagline"><Persona field="hero.tagline" /></p>
+
+    <div class="hero-ctas">
+      <a class="cta cta-primary" href="#projects">
+        <Persona field="hero.primaryCta" />
+      </a>
+      <a class="cta cta-secondary" href="/resume.pdf" download>
+        <Persona field="hero.secondaryCta" />
+      </a>
+    </div>
+
+    <div class="hero-scroll-cue" aria-hidden="true">
+      <Persona field="hero.scrollCue" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-7) var(--space-5) var(--space-5);
+    overflow: hidden;
+  }
+
+  .hero-content {
+    max-width: 60ch;
+    text-align: center;
+    z-index: 1;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin: 0 0 var(--space-4);
+    /* Strings are pre-cased in copy.ts — no text-transform per CLAUDE.md. */
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    line-height: 1.1;
+    margin: 0 0 var(--space-3);
+    color: var(--fg);
+    letter-spacing: -0.01em;
+  }
+
+  .hero-title {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--muted);
+    margin: 0 0 var(--space-4);
+    line-height: 1.5;
+  }
+
+  .hero-tagline {
+    font-family: var(--font-display);
+    font-weight: var(--weight-body);
+    font-size: clamp(1rem, 2.4vw, 1.4rem);
+    line-height: 1.55;
+    margin: 0 auto var(--space-5);
+    color: var(--fg);
+    font-style: italic;
+    max-width: 50ch;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: var(--space-3);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-7);
+  }
+
+  .cta {
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    line-height: 1.5;
+    transition:
+      background var(--duration-swap) var(--easing-swap),
+      color var(--duration-swap) var(--easing-swap),
+      border-color var(--duration-swap) var(--easing-swap),
+      border-radius var(--duration-swap) var(--easing-swap),
+      transform 120ms ease-out;
+  }
+  .cta:hover {
+    transform: translateY(-1px);
+  }
+  .cta:active {
+    transform: translateY(0);
+  }
+  .cta:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .cta-primary {
+    background: var(--accent);
+    color: var(--bg);
+  }
+  .cta-primary:hover {
+    /* Same color, just lifted via transform. Subtle. */
+  }
+
+  .cta-secondary {
+    background: transparent;
+    color: var(--fg);
+    border: 1px solid var(--border);
+  }
+  .cta-secondary:hover {
+    border-color: var(--fg);
+  }
+
+  .hero-scroll-cue {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    opacity: 0.7;
+    margin-top: var(--space-3);
+  }
+</style>

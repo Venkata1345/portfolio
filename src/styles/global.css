@@ -6,12 +6,14 @@
    ───────────────────────────────────────────────────────────────────── */
 
 [data-theme="A"] {
-  /* Maester / Citadel — parchment, ink, deep house red */
-  --bg: #f5ecd5;
-  --fg: #1a1410;
-  --accent: #7a1f1f;
-  --muted: #8a7a5a;
-  --border: rgba(26, 20, 16, 0.15);
+  /* Maester / Citadel — "the study at night."
+     Cold slate stone walls, candlelit parchment text, aged brass for the chain.
+     Temperature: cold bg + warm accent (GOT title-sequence move). */
+  --bg: #1c1f23;             /* cold slate — dark stone library walls */
+  --fg: #e8dcc0;             /* warm parchment cream — candlelit text */
+  --accent: #c9913a;         /* aged brass — the Maester's chain */
+  --muted: #6b6760;          /* dim stone */
+  --border: rgba(232, 220, 192, 0.12);
 
   --font-display: "Cinzel", "Cormorant Garamond", Georgia, serif;
   --font-body: "Cormorant Garamond", Georgia, "Times New Roman", serif;
@@ -38,12 +40,15 @@
 }
 
 [data-theme="B"] {
-  /* MacLaren's / Booth 3 — warm dark wood, cream, neon pink */
-  --bg: #1a1612;
-  --fg: #f0e6d6;
-  --accent: #d4416c;
-  --muted: #8a7a6a;
-  --border: rgba(240, 230, 214, 0.1);
+  /* MacLaren's / Booth 3 — "last call at the bar."
+     Warm dark wood paneling, cream from the booth lighting, sky-blue accent
+     that doubles as the Blue French Horn + HIMYM title-card identity.
+     Temperature: warm bg + cool accent (inverse of Maester). */
+  --bg: #1f1812;             /* warm dark wood — bar paneling */
+  --fg: #f4e8d0;             /* cream — light reflecting off the booth */
+  --accent: #5fa8d3;         /* sky blue — Blue French Horn / HIMYM title card */
+  --muted: #7a6a5a;          /* faded warm wood */
+  --border: rgba(244, 232, 208, 0.12);
 
   --font-display: "Coolvetica", "Bebas Neue", "Helvetica Neue", sans-serif;
   --font-body: "Inter", "Helvetica Neue", system-ui, sans-serif;

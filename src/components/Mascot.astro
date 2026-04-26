@@ -1,0 +1,194 @@
+---
+/**
+ * Persona-specific decorative mascot in the hero.
+ *   Theme A — Maester: a perched raven that flies in once on first reveal.
+ *   Theme B — MacLaren's: TBD (french horn — built after raven approval).
+ *
+ * Rules (locked in Phase 4 setup):
+ *   - Hidden on mobile (<640px). Mascot must not crowd the CTAs.
+ *   - Respects prefers-reduced-motion. Fly-in is decorative; reduced-motion
+ *     users get the raven in its final position with no animation.
+ *   - The raven flies in the FIRST time theme A becomes active, regardless of
+ *     whether that's on initial load or after a toggle. Subsequent A-switches
+ *     just show it (no re-animation).
+ */
+---
+
+<div class="mascot-slot" aria-hidden="true">
+  <div data-persona="A" class="mascot mascot-a">
+    <svg
+      class="raven"
+      viewBox="0 0 100 80"
+      xmlns="http://www.w3.org/2000/svg"
+      width="100"
+      height="80"
+    >
+      <!-- tail -->
+      <polygon points="14,50 28,46 28,58" fill="currentColor" />
+      <!-- body -->
+      <ellipse cx="48" cy="50" rx="22" ry="13" fill="currentColor" />
+      <!-- head -->
+      <circle cx="68" cy="40" r="10" fill="currentColor" />
+      <!-- beak -->
+      <polygon points="76,38 88,40 76,42" fill="currentColor" />
+      <!-- eye -->
+      <circle cx="71" cy="38" r="1.4" fill="var(--bg)" />
+      <!-- subtle wing crease -->
+      <path
+        d="M 36 47 Q 48 51, 62 49"
+        stroke="var(--bg)"
+        stroke-width="0.7"
+        opacity="0.3"
+        fill="none"
+      />
+      <!-- legs -->
+      <line x1="44" y1="62" x2="44" y2="68" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      <line x1="54" y1="62" x2="54" y2="68" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      <!-- perch -->
+      <line x1="36" y1="69" x2="62" y2="69" stroke="currentColor" stroke-width="0.7" opacity="0.4" stroke-linecap="round" />
+    </svg>
+  </div>
+
+  <div data-persona="B" class="mascot mascot-b">
+    <svg
+      class="french-horn"
+      viewBox="0 0 100 80"
+      xmlns="http://www.w3.org/2000/svg"
+      width="100"
+      height="80"
+    >
+      <!-- main coiled body (outer ring) -->
+      <circle cx="48" cy="42" r="24" fill="none" stroke="currentColor" stroke-width="3.5" />
+      <!-- inner coil hint -->
+      <circle cx="48" cy="42" r="14" fill="none" stroke="currentColor" stroke-width="2" opacity="0.7" />
+      <!-- bell (flared end, right side) -->
+      <path d="M 70 35 Q 78 30, 92 24 L 94 32 Q 82 38, 72 38 Z" fill="currentColor" />
+      <!-- lead pipe to mouthpiece -->
+      <line x1="30" y1="26" x2="20" y2="18" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+      <!-- mouthpiece -->
+      <ellipse cx="17" cy="15" rx="4" ry="3" fill="currentColor" />
+      <!-- three valve stems -->
+      <line x1="38" y1="62" x2="38" y2="74" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+      <line x1="48" y1="64" x2="48" y2="76" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+      <line x1="58" y1="62" x2="58" y2="74" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+      <!-- valve caps -->
+      <circle cx="38" cy="75" r="2.2" fill="currentColor" />
+      <circle cx="48" cy="77" r="2.2" fill="currentColor" />
+      <circle cx="58" cy="75" r="2.2" fill="currentColor" />
+    </svg>
+  </div>
+</div>
+
+<style>
+  .mascot-slot {
+    position: absolute;
+    top: var(--space-7);
+    right: var(--space-6);
+    pointer-events: none;
+    z-index: 0;
+  }
+  /* No `.mascot { display: ... }` rule here — divs are block by default,
+     and the global persona engine in global.css applies
+     `display: contents` to [data-persona] (active) and `display: none`
+     to the inactive theme's element. Re-stating display on `.mascot`
+     here would tie/beat the global hide rule's specificity (because
+     Astro scopes component selectors with a per-component attribute,
+     bumping specificity), leaving both mascots visible. */
+
+  .raven {
+    color: var(--fg);
+    width: 100px;
+    height: auto;
+    display: block;
+    /* Initial state for fly-in animation; overridden by Motion One.
+       If JS / animation is disabled, the raven appears in final position. */
+  }
+
+  /* The Blue French Horn — theme B mascot.
+     Inherits the accent (sky blue) so it's visually distinct from the cream
+     raven and ties to the bar's neon-signage palette. */
+  .mascot-b {
+    pointer-events: auto; /* needed for hover-triggered wobble */
+  }
+  .french-horn {
+    color: var(--accent);
+    width: 100px;
+    height: auto;
+    display: block;
+    transform-origin: 50% 50%;
+    cursor: pointer;
+  }
+
+  /* Hover wobble — small oscillation, "honk-honk" feel.
+     Disabled wholesale by the prefers-reduced-motion block below. */
+  .french-horn:hover {
+    animation: french-horn-wobble 0.45s ease-in-out infinite;
+  }
+  @keyframes french-horn-wobble {
+    0%, 100% { transform: rotate(0); }
+    25%      { transform: rotate(-5deg); }
+    75%      { transform: rotate(5deg); }
+  }
+
+  /* Mobile: hide mascot entirely so it doesn't crowd CTAs. */
+  @media (max-width: 640px) {
+    .mascot-slot {
+      display: none;
+    }
+  }
+
+  /* Reduced motion: disable hover wobble entirely.
+     The raven's fly-in is gated by JS (see <script> below). */
+  @media (prefers-reduced-motion: reduce) {
+    .french-horn:hover {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  import { animate } from "motion";
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let ravenAnimated = false;
+
+  function maybeAnimateRaven() {
+    if (ravenAnimated) return;
+    if (reducedMotion) {
+      // No animation — flag as "done" so we don't try again.
+      ravenAnimated = true;
+      return;
+    }
+    const theme = document.documentElement.dataset.theme;
+    if (theme !== "A") return;
+
+    const raven = document.querySelector<HTMLElement>(".raven");
+    if (!raven) return;
+
+    ravenAnimated = true;
+    animate(
+      raven,
+      {
+        x: [-180, 0],
+        y: [-60, 0],
+        opacity: [0, 1],
+        rotate: [-8, 0],
+      },
+      {
+        duration: 1.4,
+        easing: [0.25, 1, 0.5, 1],
+      }
+    );
+  }
+
+  // Try on initial load.
+  maybeAnimateRaven();
+
+  // Watch for theme changes — the raven flies in the FIRST time A is active,
+  // even if that happens after a toggle from B.
+  const observer = new MutationObserver(() => maybeAnimateRaven());
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
+</script>
