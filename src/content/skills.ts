@@ -11,33 +11,46 @@ export type SkillCategoryKey =
   | "math"
   | "compliance";
 
+/**
+ * The resume lists 10 skill categories; the site renders 6, because each key
+ * has a hand-written persona header in copy.ts. Mapping (decided 2026-07-29):
+ *   programming ← Programming Languages + Data Engineering + Databases & Data Quality
+ *   ml          ← AI/ML Frameworks + Model Evaluation & Observability
+ *   agents      ← LLM & GenAI Tools + Vector Databases
+ *   cloud       ← Backend & API Development + Cloud Platforms + CI/CD & DevOps
+ *   math        ← retained from the prior resume (current PDF drops the section)
+ *   compliance  ← retained, plus SOX/audit work from the KPMG role
+ */
 export const skillItems: Record<SkillCategoryKey, string[]> = {
   programming: [
-    "Python", "PyMuPDF", "Pydantic", "pandas", "spaCy",
-    "PyTorch", "TensorFlow", "scikit-learn", "XGBoost",
-    "LSTM", "ARIMA", "Prophet",
-    "SQL", "PostgreSQL", "MySQL", "Hive", "PySpark",
-    "ETL workflows", "Airflow", "real-time pipelines", "data drift monitoring",
+    "Python", "Java", "TypeScript", "JavaScript", "Node.js", "SQL",
+    "pandas", "PostgreSQL", "Snowflake", "MongoDB", "Redis",
+    "Apache Spark", "Apache Kafka", "Apache Airflow", "Databricks", "dbt",
+    "Great Expectations", "ETL workflows", "feature engineering",
   ],
   ml: [
-    "Hugging Face Transformers", "DeBERTa-V3", "Longformer",
-    "LoRA", "PEFT", "Optuna", "MLflow", "LangChain",
-    "hyperparameter tuning", "Bayesian optimization", "k-fold CV",
-    "reinforcement learning", "few-shot / zero-shot learning",
-    "self-supervised learning", "SHAP", "explainable AI",
-    "RAG", "synthetic data generation", "AutoML", "NAS",
+    "PyTorch", "TensorFlow", "scikit-learn", "Hugging Face Transformers",
+    "OpenCV", "ONNX Runtime", "CUDA", "XGBoost",
+    "LoRA", "mixed-precision training", "hyperparameter tuning",
+    "SHAP", "explainable AI",
+    "Ragas", "LLM-as-a-Judge", "DeepEval", "LangSmith",
+    "MLflow", "TensorBoard", "PromptFlow",
   ],
   agents: [
-    "RAG architecture", "LangChain", "LangGraph", "FAISS", "ChromaDB",
-    "ViT", "GPT-4", "PubMed search integration",
-    "AI chatbots", "speech-to-text", "contextual QA",
-    "medical research agents", "real-time SOAP note generation",
+    "LangChain", "LangGraph", "LlamaIndex", "CrewAI",
+    "OpenAI API", "Anthropic Claude API", "Azure OpenAI",
+    "RAG architecture", "hybrid retrieval", "BM25",
+    "Reciprocal Rank Fusion", "semantic re-ranking",
+    "multi-agent orchestration", "tool-calling",
+    "FAISS", "Pinecone", "Weaviate", "Chroma", "Qdrant",
   ],
   cloud: [
-    "AWS", "Azure", "GCP", "Docker", "Kubernetes",
-    "REST APIs", "AWS Lambda", "Azure Functions", "Kafka",
-    "Prometheus", "Grafana", "Streamlit", "Plotly",
-    "low-latency inference pipelines",
+    "FastAPI", "Java Spring Boot", "RESTful APIs", "GraphQL", "React",
+    "Docker", "Kubernetes", "Terraform", "GitHub Actions", "Azure DevOps",
+    "Azure Machine Learning", "Azure AI Search", "Azure Document Intelligence",
+    "Azure Functions", "Azure Kubernetes Service", "Azure Data Factory",
+    "Azure Blob Storage", "Amazon SageMaker",
+    "AWS (Bedrock, Lambda, S3, Glue)",
   ],
   math: [
     "Probability theory", "Bayesian inference", "hypothesis testing",
@@ -46,7 +59,8 @@ export const skillItems: Record<SkillCategoryKey, string[]> = {
     "Bayesian hyperparameter optimization", "simulation-based evaluation",
   ],
   compliance: [
-    "HIPAA", "SOC 2", "IT risk controls",
+    "HIPAA", "SOC 2", "SOX compliance workflows", "IT risk controls",
+    "data quality validation",
     "stakeholder communication", "requirement gathering",
     "ethical AI practices",
   ],

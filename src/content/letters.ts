@@ -13,7 +13,7 @@
  * slug union. The renderer's contract:
  *   - If `aboutProject` matches an existing project slug (e.g. "nexus"), the
  *     letter renders with the project name as a clickable link.
- *   - Otherwise (e.g. "ecare-rag", a work-experience reference), it renders as
+ *   - Otherwise (e.g. "optum-rag", a work-experience reference), it renders as
  *     plain text — no broken link.
  *
  * Houses give projects their own in-universe names — letter bodies are not
@@ -38,7 +38,7 @@ export const letters: Letter[] = [
   },
   {
     fromHouse: "House Stark",
-    aboutProject: "ecare-rag",
+    aboutProject: "optum-rag",
     body: "Maester, the work you do in the realm of healers does not go unnoticed in the North. A system that refuses to invent what it does not know — that flags its own uncertainty before it speaks — is rare, and rarer still in the southern courts. We have long held that the man who passes the sentence should swing the sword. Your evaluation framework appears to honor the same principle. The North remembers.",
     signOff: "— Lord Stark, Warden of the North",
   },

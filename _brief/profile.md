@@ -7,7 +7,7 @@
 - **Name**: Venkata Abhishek Gullipalli
 - **Display name**: Abhishek Gullipalli
 - **Location**: Houston, TX
-- **Email (public, Contact section)**: abhishekgullipalli65@gmail.com
+- **Email (public, Contact section)**: abhishek.gullipalli1345@gmail.com
 - **Phone**: NOT public on site
 - **LinkedIn**: https://www.linkedin.com/in/abhishek-gv/
 - **GitHub**: https://github.com/Venkata1345
@@ -19,7 +19,7 @@ I'm an AI/ML engineer who turns research-grade models into systems that don't br
 
 ## Bio
 
-I'm an AI/ML engineer who builds the part nobody puts in the demo — the eval framework, the safety rails, the ingestion pipeline that doesn't lose pages. Four years in healthcare, CRM, and research have taught me the interesting work happens after the model is good. Most of my projects start with "this needs to not hallucinate in production."
+I'm an AI/ML engineer who builds the part nobody puts in the demo — the eval framework, the safety rails, the ingestion pipeline that doesn't lose pages. Four years in healthcare, financial services, and research have taught me the interesting work happens after the model is good. Most of my projects start with "this needs to not hallucinate in production."
 
 ## Projects (4)
 
@@ -55,5 +55,5 @@ I'm an AI/ML engineer who builds the part nobody puts in the demo — the eval f
 
 ## Resume PDF
 
-- Source: `Abhishek Gullipalli - AI-ML Engineer.pdf` (provided by user)
-- Will live at `public/resume.pdf` once build starts
+- Source: resume PDF provided by the user 2026-07-29 (Optum / UH / KPMG version)
+- Shipped at `public/resume.pdf`; extracted to `_brief/resume.md`

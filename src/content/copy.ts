@@ -317,7 +317,7 @@ const themeB: Copy = {
   about: {
     sectionLabel: "Kids, Here's How It Started",          // ✓ from Phase 0
     sectionTagline: "Kids, the unglamorous version is the real one",
-    bio: "Kids, your dad-ish friend Abhishek is the guy who builds the parts nobody puts in the demo — the eval framework, the safety rails, the ingestion pipeline that doesn't lose pages. Four years in healthcare, CRM, and research have taught him the interesting work starts after the model is good. Most of his projects begin with the same line: this must not hallucinate in production. — True story.",
+    bio: "Kids, your dad-ish friend Abhishek is the guy who builds the parts nobody puts in the demo — the eval framework, the safety rails, the ingestion pipeline that doesn't lose pages. Four years in healthcare, financial services, and research have taught him the interesting work starts after the model is good. Most of his projects begin with the same line: this must not hallucinate in production. — True story.",
   },
 
   projects: {

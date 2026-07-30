@@ -245,7 +245,7 @@ type Letter = {
 };
 ```
 
-Currently 4 letters: House Lannister → nexus, House Stark → ecare-rag (work experience, no project file), House Tyrell → neurochat, House Targaryen → scale-vision.
+Currently 4 letters: House Lannister → nexus, House Stark → optum-rag (work experience, no project file), House Tyrell → neurochat, House Targaryen → scale-vision.
 
 ---
 
@@ -332,12 +332,12 @@ In [src/components/Mascot.astro](src/components/Mascot.astro). Same DOM slot, pe
 |---|---|
 | Name | Venkata Abhishek Gullipalli (display: Abhishek Gullipalli) |
 | Location | Houston, TX |
-| Email (public) | abhishekgullipalli65@gmail.com |
+| Email (public) | abhishek.gullipalli1345@gmail.com (switched 2026-07-29 to match the resume PDF) |
 | Phone | **NOT** on site |
 | LinkedIn | https://www.linkedin.com/in/abhishek-gv/ |
 | GitHub | https://github.com/Venkata1345 |
 | X | https://x.com/OGambheera |
-| Resume PDF | Will live at `public/resume.pdf` once dropped in. Currently missing → `astro.config.mjs` logs a warning at dev/build start; the link 404s but doesn't fail the build. |
+| Resume PDF | Shipped at `public/resume.pdf` (Optum / UH / KPMG version, 2026-07-29). |
 
 ---
 
@@ -423,5 +423,5 @@ If you change anything voice-bearing, **never invent** — pull from the briefs 
 - **Projects card hover** — propose tilt / parallax / reveal at the start of that section. Not yet decided.
 - **`@astrojs/mdx` integration** — the projects MDX files exist but aren't rendered yet. Need to install `@astrojs/mdx` and define `src/content.config.ts` before the Projects section can render. Currently the dev server logs a non-blocking warning about auto-generated collections.
 - **ScaleVision is a placeholder** — user intends to swap this project for a different one later. Keep the slot/order; expect new neutral content + reset of all themeA/themeB fields when swapped.
-- **Resume PDF** — drop the actual PDF at `public/resume.pdf` before deploy.
-- **Mailto address** — the user lives on `abhishekgullipalli65@gmail.com` for the public Contact link. Confirm before wiring into the Contact section.
+- ~~**Resume PDF**~~ — done: `public/resume.pdf` holds the 2026-07-29 version.
+- ~~**Mailto address**~~ — decided 2026-07-29: `abhishek.gullipalli1345@gmail.com`, matching the resume PDF.

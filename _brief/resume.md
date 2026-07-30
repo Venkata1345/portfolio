@@ -1,70 +1,93 @@
 # Resume — Source of Truth
 
-> Extracted from `Abhishek Gullipalli - AI-ML Engineer.pdf` (provided by user).
+> Extracted from the resume PDF provided by the user on 2026-07-29 (now shipped as `public/resume.pdf`).
 > This is the neutral content that gets persona-ified into both A (Maester) and B (HIMYM) voices.
 
 ## Contact
 
 - **Name**: Venkata Abhishek Gullipalli
-- **Email (resume)**: abhishekgullipalli65@gmail.com
+- **Email (resume)**: abhishek.gullipalli1345@gmail.com
 - **Phone**: 713-539-9097
 - **Location**: Houston, TX, USA
-- **LinkedIn**: _URL pending — only labeled link in PDF_
-- **GitHub**: _URL pending — only labeled link in PDF_
+- **LinkedIn**: https://www.linkedin.com/in/abhishek-gv/
+- **GitHub**: https://github.com/Venkata1345
 
 ## Summary
 
-Innovative AI/ML Engineer with 4+ years of experience in building scalable machine learning and NLP solutions across healthcare, CRM, and research domains. Skilled in designing end-to-end ML pipelines, RAG-based conversational agents, predictive analytics, and real-time cloud deployments using AWS, Azure, and GCP. Experienced in model optimization, explainable AI, and integrating AI with enterprise workflows to improve efficiency, automate decision-making, and drive business and operational impact.
+AI Engineer and Software Developer with 4+ years of experience architecting AI systems and backend services across healthcare and financial services using Python, Java, TypeScript, PyTorch, LangChain, LangGraph, FastAPI, Spring Boot, React, Azure, Docker, and Kubernetes, delivering RAG pipelines, LLM fine-tuning, compliance workflow automation, and containerized microservices with CI/CD, automating 500+ hours of manual data processing monthly across audit and patient support workflows.
 
 ## Technical Skills
 
-- **Programming & Data Engineering**: Python (PyMuPDF, Pydantic, pandas, spaCy, PyTorch, TensorFlow, scikit-learn, XGBoost, LSTM, ARIMA, Prophet), SQL, PostgreSQL, MySQL, Hive, PySpark, ETL workflows, data ingestion, schema design, feature engineering, Airflow, real-time data pipelines, data drift monitoring.
-- **Machine Learning & NLP**: Hugging Face Transformers (DeBERTa-V3, Longformer), LoRA, PEFT, Optuna, MLflow, LangChain, hyperparameter tuning, Bayesian optimization, k-fold cross-validation, reinforcement learning, few-shot & zero-shot learning, self-supervised learning, explainable AI (SHAP, XAI), RAG, synthetic data generation, AutoML, NAS.
-- **AI & Conversational Agents**: RAG architecture, LangChain, FAISS, ChromaDB, ViT, GPT-4, PubMed search integration, AI chatbots, speech-to-text, contextual question answering, medical research agents, real-time SOAP note generation, LangGraph.
-- **Cloud, Deployment & Infrastructure**: AWS, Azure, GCP, Docker, Kubernetes, REST APIs, serverless architecture (AWS Lambda, Azure Functions), Kafka, cloud deployment, model monitoring (Prometheus, Grafana), Streamlit, Plotly, scalable low-latency inference pipelines.
-- **Applied Math & Statistics**: Probability theory, Bayesian inference, hypothesis testing, causal inference (propensity, DAG reasoning), time-series modeling, Markov processes, convex / non-convex optimization, Bayesian hyperparameter optimization (Optuna), simulation-based evaluation.
-- **Compliance, Collaboration & Soft Skills**: HIPAA, SOC 2, IT risk controls, stakeholder communication, requirement gathering, ethical AI practices.
+- **Programming Languages**: Python, Java, TypeScript, JavaScript, Node.js, SQL
+- **AI/ML Frameworks**: PyTorch, TensorFlow, scikit-learn, Hugging Face Transformers, OpenCV, ONNX Runtime, CUDA
+- **LLM & GenAI Tools**: LangChain, LangGraph, LlamaIndex, CrewAI, OpenAI API, Anthropic Claude API, FAISS, Reciprocal Rank Fusion, LoRA
+- **Vector Databases**: Pinecone, Weaviate, Chroma, Qdrant
+- **Model Evaluation & Observability**: Ragas, LLM-as-a-Judge, DeepEval, LangSmith, MLflow, TensorBoard, PromptFlow
+- **Backend & API Development**: FastAPI, Java Spring Boot, RESTful APIs, GraphQL, React
+- **Cloud Platforms**: Azure Machine Learning, Azure OpenAI, Azure AI Search, Azure Document Intelligence, Azure Functions, Azure Kubernetes Service, Azure Data Factory, Azure Blob Storage, Amazon SageMaker, AWS (Bedrock, Lambda, S3, Glue)
+- **Data Engineering**: Apache Spark, Apache Kafka, Apache Airflow, Databricks, dbt
+- **CI/CD & DevOps**: Docker, Kubernetes, Terraform, GitHub Actions, Azure DevOps
+- **Databases & Data Quality**: PostgreSQL, Snowflake, MongoDB, Redis, Great Expectations
 
 ## Professional Experience
 
-### AI Engineer — ECare Medical Group
-**06/2025 – Present | TX, USA**
+### AI Engineer — Optum
+**06/2025 – Present | USA**
 
-- Established an AI evaluation framework using Ragas and LLM-as-a-judge methods, improving faithfulness and relevance benchmarks, achieving 92% accuracy, reducing hallucinations by 15%, and strengthening automated medical query validation through continuous testing pipelines.
-- Implemented Responsible AI and safety protocols, including crisis detection escalation pathways, anti-empathy testing, and Human-in-the-Loop checkpoints, reducing unsafe responses by 24%, ensuring 99% compliance adherence, and improving trust in high-risk medical interactions.
-- Engineered an advanced RAG pipeline using hybrid search combining BM25 and vector embeddings with Reciprocal Rank Fusion, enhanced by Azure Semantic Ranker, improving retrieval precision by 8% and reducing irrelevant results.
-- Architected a high-precision RAG ingestion pipeline using FastAPI, ensuring 1:1 page mapping and 100% metadata accuracy across medical manuals, reducing ingestion errors by 23% and improving source attribution reliability for downstream retrieval.
-- Developed an agentic orchestrator to structure LLM outputs into JSON for deep-linked Quick Review features, optimized Azure AI Search with custom embedding batching, and built scalable ingestion APIs with automated evaluation and validation suites.
+- Built a multi-agent patient-support system using LangGraph, LangChain, and FastAPI to orchestrate tool-calling across inquiry resolution and healthcare knowledge retrieval workflows, reducing request handling from 6 steps to 2 automated actions.
+- Designed a hybrid RAG pipeline using BM25, Azure OpenAI text-embedding-3-large, and Reciprocal Rank Fusion over 85K+ provider guidelines and ICD-10 documents, improving retrieval precision by 18 points over vector-only search.
+- Built document-ingestion pipelines using Azure Document Intelligence for OCR preprocessing and metadata validation across 40K+ protected healthcare records from 3 enterprise repositories, reducing ingestion error rate from 12% to under 2%.
+- Developed an LLM evaluation framework using Ragas, LLM-as-a-Judge, and MLflow across 120+ healthcare test scenarios, enforcing answer faithfulness scores above 0.85 as a hard production release gate.
+- Configured CI/CD and monitoring pipelines using Azure Machine Learning and Azure AI Search across 3 healthcare business units, enabling model releases with automated drift detection and 4-hour rollback SLA.
 
 ### AI Research Assistant — University of Houston
-**05/2024 – 02/2025 | TX, USA**
+**05/2024 – 02/2025 | USA**
 
-- Architected "NeuroChat," a context-aware conversational system combining hybrid reasoning pipelines, semantic retrieval, and adaptive response generation, improving multi-turn dialogue coherence by 28%, boosting contextual accuracy by 22%, and enhancing user engagement metrics.
-- Developed a context-persistent chatbot framework using vector embeddings, semantic re-ranking, and session memory, increasing document retrieval precision by 31%, reducing irrelevant responses and improving overall answer consistency across large-scale technical knowledge bases.
-- Engineered scalable, low-latency inference pipelines using asynchronous processing, intelligent caching, and model optimization techniques, reducing response latency by 5%, improving throughput, and ensuring reliable real-time performance under high concurrent user workloads.
+- Architected a computer vision pipeline using PyTorch and OpenCV to automate frame extraction, bounding box alignment, and edge detection across 2,000+ video frames for university research projects.
+- Standardized a scikit-learn preprocessing framework for 30K+ multimodal records by handling missing values, reducing feature noise, and preparing datasets for deep learning model training.
+- Fine-tuned Hugging Face Transformer models using PyTorch, LoRA, and mixed-precision training on academic conversational datasets across 2 university research benchmarks, improving semantic response relevance during internal evaluations.
+- Optimized Transformer training workflows using Hugging Face and CUDA kernel tuning to reduce gradient allocation bottlenecks, decreasing multi-epoch training time by 18 hours across 2 shared GPU nodes.
+- Spearheaded development of NeuroChat, a conversational RAG system using FAISS vector search and TensorBoard experiment tracking to support dense retrieval workflows while supporting 4 junior researchers with containerized development environments.
+- Integrated a conversational memory pipeline using ONNX Runtime and semantic sentence re-ranking to maintain session context across a 10,000-document technical knowledge base, improving evaluation MRR by 0.24 across 2 validation benchmarks.
 
-### AI/ML Engineer — Salesforce India
-**06/2021 – 12/2023 | Remote, Andhra Pradesh, India**
+### Software Developer — KPMG
+**01/2022 – 12/2023 | India**
 
-- Architected a predictive CRM analytics platform integrating Salesforce Sales Cloud, Service Cloud, and external marketing data into Snowflake, enabling real-time lead scoring, opportunity forecasting, anomaly detection, and automated dashboards for executive decision-making.
-- Built scalable data pipelines using Apache NiFi, Kafka, and Azure Data Factory, streaming customer interactions, engagement events, and sales metrics from Salesforce and third-party systems, improving data availability and predictive insights for sales teams by 18%.
-- Engineered feature extraction workflows with PySpark, dbt, and embedded Tableau/Grafana metrics to capture customer behavior, deal progression, and engagement patterns, feeding ML models that improved lead conversion predictions by 12% and churn detection by 10%.
-- Developed machine learning models using XGBoost, Elastic Net, and Transformers to forecast pipeline revenue, detect churn risk, and optimize cross-sell opportunities, reducing forecast error by 5% and improving upsell recommendations across global client accounts.
-- Enhanced model explainability using SHAP, tuned with Optuna, validated with rolling time-series methods (RMSE 5.9, AUC 0.91), and deployed via Azure ML, enabling transparent insights for marketing campaigns and sales engagement strategies.
-- Deployed predictive services using Docker, Kubernetes, KServe, and Azure Functions for serverless triggers, automating retraining workflows via Airflow and monitoring with Evidently AI, generating real-time alerts and improving actionable recommendations by 21%.
+- Developed a backend data ingestion service using Python and Azure Functions to validate and process 1.5M+ financial transaction records monthly, reducing manual review effort by 60% across 3 audit engagement teams.
+- Built RESTful APIs using Java Spring Boot and PostgreSQL to automate 8 SOX compliance workflows, streamlining assessment processing for 20K+ control test cases quarterly and eliminating 3 spreadsheet-based audit tools.
+- Implemented automated data quality validation using Python and Great Expectations across 6 audit pipelines, defining 120+ business rules to catch anomalies early and cutting analyst escalations from ~25 issues/week to under 5.
+- Deployed containerized microservices on Azure Kubernetes Service using Docker and Azure DevOps, supporting 15+ production releases per quarter with automated rollback policies and under 2% deployment failure rate.
+- Refactored a legacy compliance dashboard into modular React components with TypeScript and Node.js, consolidating 8 compliance modules and reducing average page load time from 8s to under 5s during peak year-end close.
+
+## Resume Projects
+
+> These are the two projects listed on the PDF. The **site** deliberately shows a
+> different, stronger set (Nexus, NeuroChat, Nutri-Grade, ScaleVision) because those
+> have live demos and public repos. See `_brief/profile.md`.
+
+### Enterprise Knowledge Assistant using LLMs & Retrieval-Augmented Generation (RAG)
+
+- Engineered an enterprise AI Knowledge Assistant using Python, LangChain, LLMs, RAG, FAISS, and prompt engineering, indexing 250K+ technical documents to provide context-aware responses, reducing internal knowledge search time by 65 hours per month across engineering teams.
+- Developed vector embeddings, FastAPI, Docker, and Redis based retrieval pipelines with automated document ingestion and semantic search, supporting 8,000+ user queries while improving answer relevance and minimizing hallucinations through citation-based responses.
+
+### Predictive Healthcare Risk Analytics Platform
+
+- Built an end-to-end ML pipeline using Python, scikit-learn, XGBoost, pandas, feature engineering, and hyperparameter tuning to analyze 1.2M+ electronic health records, identifying 4,800+ high-risk patients for early clinical intervention and resource prioritization.
+- Implemented MLflow, SHAP explainable AI, Apache Airflow, and FastAPI to automate model training, versioning, deployment, and real-time inference, reducing prediction processing time from 95 minutes to 28 minutes while providing transparent risk explanations for healthcare analysts.
 
 ## Education
 
-- **MS, Engineering Data Science** — University of Houston, Houston, TX | 01/2024 – 12/2025 | GPA 3.9/4.0
+- **MS, Engineering Data Science** — University of Houston, Houston, TX | 01/2024 – 12/2025
+
+## Retained from the prior resume (not on the current PDF)
+
+> The 2026-07-29 PDF trims these for length. They stay here because the site's
+> Education and Archives sections still source from them — the omission is a
+> resume-length decision, not a deletion. Confirmed with the user 2026-07-29.
+
 - **B.Tech, Computer Science and Engineering** — GITAM University, Visakhapatnam, India | GPA 9.01/10
-
-## Certificates & Publications
-
-- Academy Accreditation — Generative AI Fundamentals
-- Oracle Cloud Infrastructure 2025 Certified Data Science Professional
-- Oracle Cloud Infrastructure 2025 Certified Generative AI Professional
-- AI Agents Fundamental
-- NVIDIA Deep Learning
-- Neural Networks and Deep Learning
-- Transfer Learning for NLP with TensorFlow Hub
+- MS GPA: 3.9/4.0
+- Certificates: Academy Accreditation — Generative AI Fundamentals; Oracle Cloud Infrastructure 2025 Certified Data Science Professional; Oracle Cloud Infrastructure 2025 Certified Generative AI Professional; AI Agents Fundamental; NVIDIA Deep Learning; Neural Networks and Deep Learning; Transfer Learning for NLP with TensorFlow Hub
 - *Publication*: An Experimental Study on Denoising the Images with Autoencoders
+- Applied math & statistics depth: probability theory, Bayesian inference, hypothesis testing, causal inference (propensity, DAG reasoning), time-series modeling, Markov processes, convex / non-convex optimization, Bayesian hyperparameter optimization (Optuna), simulation-based evaluation
+- Compliance exposure: HIPAA, SOC 2, IT risk controls
